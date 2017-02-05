@@ -1,0 +1,39 @@
+﻿@model MyInstagram.WebUI.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Registration</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Регистрация пользователя</h4>
+        <hr/>
+    </div>
+    @Html.ValidationSummary()
+
+    <div>
+        Имя пользователя
+        <div>
+            @Html.TextBoxFor(model => model.UserName)
+        </div>
+
+        Пароль
+        <div>
+            @Html.TextBoxFor(model => model.Password)
+        </div>
+
+        Подтверждение Пароля
+        <div>
+            @Html.TextBoxFor(model => model.ConfirmPassword)
+        </div>
+        <div>
+            <div>
+            <input type="submit" value="Зарегистрировать" />
+            </div>
+        </div>
+    </div>
+}

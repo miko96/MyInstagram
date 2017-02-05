@@ -124,9 +124,17 @@
     <Compile Include="Concrete\MyInstagramEntities.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\ArticleComment.cs" />
+    <Compile Include="Entities\ArticleLike.cs" />
+    <Compile Include="Entities\UserArticle.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Migrations\201701312011065_MigrateDB.cs" />
     <Compile Include="Migrations\201701312011065_MigrateDB.Designer.cs">
       <DependentUpon>201701312011065_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031859083_MigrateDB1.cs" />
+    <Compile Include="Migrations\201702031859083_MigrateDB1.Designer.cs">
+      <DependentUpon>201702031859083_MigrateDB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,6 +146,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701312011065_MigrateDB.resx">
       <DependentUpon>201701312011065_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031859083_MigrateDB1.resx">
+      <DependentUpon>201702031859083_MigrateDB1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

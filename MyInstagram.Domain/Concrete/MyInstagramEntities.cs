@@ -7,7 +7,11 @@ namespace MyInstagram.Domain.Concrete
     {
         public MyInstagramEntities() : base ("MyInstagramEntities") {}
         public DbSet<Article> Articles { get; set; }
-
+        public DbSet<ArticleComment> ArticleComments { get; set; }
+        public DbSet<ArticleLike> ArticleLikes { get; set; }
+        public DbSet<UserArticle> UserArticles { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+              
         static MyInstagramEntities()
         {
             Database.SetInitializer<MyInstagramEntities>(new IdentityDbInit());

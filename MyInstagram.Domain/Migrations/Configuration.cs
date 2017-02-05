@@ -9,7 +9,7 @@ namespace MyInstagram.Domain.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(MyInstagram.Domain.Concrete.MyInstagramEntities context)

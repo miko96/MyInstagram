@@ -12,5 +12,16 @@ namespace MyInstagram.Domain.Entities
         public string Description { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public ICollection<UserArticle> UserArticles { get; set; }
+        public ICollection<ArticleLike> ArticleLikes { get; set; }
+        public ICollection<ArticleComment> ArticleComments { get; set; }
+
+        public Article()
+        {
+            DateCreated = DateTime.Now;
+            //UserArticles = new List<UserArticle>();
+        }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model MyInstagram.WebUI.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.ValidationSummary()
+        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+        <p>
+            <label>UserName</label><br/>
+            @Html.TextBoxFor(model => model.UserName)
+        </p>
+        <p>
+            <label>Password</label><br />
+            @Html.EditorFor(model => model.Password)
+        </p>
+        <p><button type="submit">SignIn</button></p>
+    </div>
+}
