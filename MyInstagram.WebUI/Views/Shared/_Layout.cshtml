@@ -1,14 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
-    </head>
+</head>
 
-    <body>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="navbar navbar-static-top" role="navigation">
+                <div class="container">
+                    <ul class="nav nav-justified">
+                        <li class="active"><a href="@Url.Action("Index","Articles")"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+                        <li><a href="@Url.Action("Create", "Articles")"><span class="glyphicon glyphicon-camera"></span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
         @RenderBody()
-    </body>
+    </div>
+</body>
 </html>

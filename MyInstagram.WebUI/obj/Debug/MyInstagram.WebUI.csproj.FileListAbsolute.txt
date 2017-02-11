@@ -76,3 +76,7 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\Microsoft.
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\Microsoft.Owin.Security.Cookies.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\Newtonsoft.Json.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\MyInstagram.Data.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\MyInstagram.Service.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\MyInstagram.Data.pdb
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\MyInstagram.Service.pdb
