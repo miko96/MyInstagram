@@ -26,3 +26,4 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ne
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\MyInstagram.Service.csprojResolveAssemblyReference.cache
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\MyInstagram.Service.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\MyInstagram.Service.pdb
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Service.dll.config

@@ -27,3 +27,5 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Micro
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Newtonsoft.Json.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.pdb
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.Migrations.MigrationDb.resources
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.csproj.GenerateResource.Cache

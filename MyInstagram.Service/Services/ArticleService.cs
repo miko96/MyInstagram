@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MyInstagram.Service.Infrastructure;
 using MyInstagram.Data.Infrastructure;
 using MyInstagram.Data.Repository;
-using MyInstagram.Domain.Entities;
+using MyInstagram.Data.Entities;
 namespace MyInstagram.Service.Services
 {
     public class ArticleService : EntityService<Article>, IArticleService

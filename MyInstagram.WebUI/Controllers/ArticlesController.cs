@@ -6,8 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyInstagram.Domain.Concrete;
-using MyInstagram.Domain.Entities;
+using MyInstagram.Data.Entities;
 using MyInstagram.Service.Services;
 
 
@@ -65,22 +64,25 @@ namespace MyInstagram.WebUI.Controllers
             return View();
         }
 
-        //// POST: Articles/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "ArticleID,Description,ImageData,ImageMimeType,DateCreated")] Article article)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Articles.Add(article);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
 
-        //    return View(article);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Article article, HttpPostedFileBase image = null)
+        {
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    article.ImageMimeType = image.ContentType;
+                    article.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(article.ImageData, 0, image.ContentLength);
+                }
+                articleService.Create(article);
+                return RedirectToAction("Index");
+            }
+
+            return View(article);
+        }
 
         //// GET: Articles/Edit/5
         //public ActionResult Edit(int? id)

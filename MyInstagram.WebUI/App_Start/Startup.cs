@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using MyInstagram.Domain.Entities;
-using MyInstagram.Domain.Concrete;
+using MyInstagram.Data;
+using MyInstagram.Data.Infrastructure;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.AspNet.Identity;
 

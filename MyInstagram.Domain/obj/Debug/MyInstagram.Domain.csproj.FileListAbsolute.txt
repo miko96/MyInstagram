@@ -40,6 +40,3 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\bin\Debug\Mic
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\bin\Debug\Newtonsoft.Json.xml
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\obj\Debug\MyInstagram.Domain.Migrations.MigrateDB.resources
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\obj\Debug\MyInstagram.Domain.csproj.GenerateResource.Cache
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Domain\obj\Debug\MyInstagram.Domain.Migrations.MigrateDB1.resources

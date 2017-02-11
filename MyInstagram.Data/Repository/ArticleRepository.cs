@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using MyInstagram.Data.Infrastructure;
-using MyInstagram.Domain.Entities;
+using MyInstagram.Data.Entities;
 
 namespace MyInstagram.Data.Repository
 {
