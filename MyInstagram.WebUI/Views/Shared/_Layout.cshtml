@@ -17,7 +17,7 @@
                         <li class="active"><a href="@Url.Action("Index","Articles")"><span class="glyphicon glyphicon-home"></span></a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
                         <li><a href="@Url.Action("Create", "Articles")"><span class="glyphicon glyphicon-camera"></span></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+                        <li><a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-user"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -26,5 +26,8 @@
     <div class="container">
         @RenderBody()
     </div>
+
+    <script src="~/scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>

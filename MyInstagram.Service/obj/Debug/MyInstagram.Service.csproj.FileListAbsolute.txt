@@ -1,7 +1,6 @@
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Service.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Service.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Data.dll
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Domain.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\EntityFramework.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Microsoft.AspNet.Identity.Core.dll
@@ -13,7 +12,6 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ow
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Microsoft.Owin.Security.Cookies.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Newtonsoft.Json.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Data.pdb
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Domain.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\EntityFramework.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Microsoft.AspNet.Identity.Core.xml
@@ -27,3 +25,7 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\My
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\MyInstagram.Service.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\obj\Debug\MyInstagram.Service.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\MyInstagram.Service.dll.config
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ninject.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ninject.Web.Common.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ninject.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Service\bin\Debug\Ninject.Web.Common.xml

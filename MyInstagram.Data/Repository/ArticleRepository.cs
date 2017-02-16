@@ -13,8 +13,9 @@ namespace MyInstagram.Data.Repository
     {
         public ArticleRepository(DbContext context)
             : base(context) { }
-        
-            public Article GetById(int id)
+
+
+        public Article GetById(int id)
         {
             return FindBy(x => x.ArticleID == id).FirstOrDefault();
         }

@@ -9,7 +9,11 @@ namespace MyInstagram.WebUI.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
+    using Ninject.Modules;
     using Ninject.Web.Common;
+
+    using MyInstagram.Service.Infrastructure;
+    using MyInstagram.Data.Infrastructure;
 
     public static class NinjectWebCommon 
     {
@@ -39,7 +43,13 @@ namespace MyInstagram.WebUI.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var modules = new INinjectModule[]
+                             {
+                                 new ServiceNinjectModule(),
+                                 new DataNinjectModule()
+                             };
+
+            var kernel = new StandardKernel(modules);
 
             try
             {

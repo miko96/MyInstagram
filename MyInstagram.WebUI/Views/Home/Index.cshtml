@@ -1,7 +1,55 @@
-﻿
+﻿@using System.Web;
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img class="img-responsive img-circle" style="margin:0 auto" src="http://placehold.it/256x256" alt="">
+            <h1>
+                John Smith  
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit Profile","Edit", "UserProfiles", new { id = User.Identity.GetUserId() }, new { @class = "btn btn-primary" });
+                    //<a class="btn btn-primary" href="#" role="button">Edit profile</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" href="#" role="button">Follow</a>
+                }
+            </h1>
+            
+            <ul class="list-inline">
+                <li>ПУБЛИКАЦИИ</li>
+                <li>ПОДПИЩИКИ</li>
+                <li>ПОДПИСКИ</li>
+            </ul>
+            <hr />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img class="img-responsive img" src="http://placehold.it/400x300" alt="">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            </div>
+        </div>
+    </div>
+</div>

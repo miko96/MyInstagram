@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -118,7 +123,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -146,6 +151,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -155,6 +164,10 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -210,6 +223,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -220,11 +235,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\UserProfilesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ArticleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +263,12 @@
     <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\UserProfiles\Create.cshtml" />
+    <Content Include="Views\UserProfiles\Delete.cshtml" />
+    <Content Include="Views\UserProfiles\Details.cshtml" />
+    <Content Include="Views\UserProfiles\Edit.cshtml" />
+    <Content Include="Views\UserProfiles\Index.cshtml" />
+    <Content Include="Views\Articles\Photos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -252,15 +276,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Profile\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyInstagram.Data\MyInstagram.Data.csproj">
       <Project>{940520ea-a53d-42a7-845f-10642f041958}</Project>
       <Name>MyInstagram.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyInstagram.Domain\MyInstagram.Domain.csproj">
-      <Project>{42462b7a-028c-4c74-a450-6dcbcd37d155}</Project>
-      <Name>MyInstagram.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyInstagram.Service\MyInstagram.Service.csproj">
       <Project>{34e66fcf-0e52-4cc1-b7d6-38cc0cb8618f}</Project>

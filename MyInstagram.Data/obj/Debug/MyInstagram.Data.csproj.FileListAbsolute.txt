@@ -4,7 +4,6 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\MyIns
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\MyInstagram.Data.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\EntityFramework.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\EntityFramework.SqlServer.dll
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\MyInstagram.Domain.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
@@ -14,7 +13,6 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Micro
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Owin.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Microsoft.Owin.Security.Cookies.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Newtonsoft.Json.dll
-D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\MyInstagram.Domain.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\EntityFramework.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\EntityFramework.SqlServer.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -29,3 +27,7 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyIns
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.Migrations.MigrationDb.resources
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\obj\Debug\MyInstagram.Data.csproj.GenerateResource.Cache
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Ninject.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Ninject.Web.Common.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Ninject.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.Data\bin\Debug\Ninject.Web.Common.xml

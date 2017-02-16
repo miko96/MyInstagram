@@ -1,0 +1,12 @@
+﻿@model IEnumerable<MyInstagram.Data.Entities.Article>
+
+@foreach(var article in Model)
+{
+    
+    <div class="thumbnail">
+       <img class="img-responsive" src="@Url.Action("GetImage", "Articles",
+                                       new { article.ArticleID })" alt="abc">
+       @article.Description;
+    </div>
+}
+

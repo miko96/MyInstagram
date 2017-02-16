@@ -21,7 +21,7 @@ namespace MyInstagram.Data.Entities
         public Article()
         {
             DateCreated = DateTime.Now;
-            //UserArticles = new List<UserArticle>();
+            UserArticles = new List<UserArticle>();
         }
     }
 }

@@ -7,15 +7,23 @@ using System.Threading.Tasks;
 using MyInstagram.WebUI.Models;
 using MyInstagram.Data.Infrastructure;
 using MyInstagram.Data.Entities;
+using MyInstagram.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 
+
 namespace MyInstagram.WebUI.Controllers
 {
     public class AccountController : Controller
     {
+        IUserProfileService userProfileService;
+
+        public AccountController(IUserProfileService userProfileService)
+        {
+            this.userProfileService = userProfileService;
+        }
 
         private ApplicationUserManager UserManager
         {
@@ -57,10 +65,14 @@ namespace MyInstagram.WebUI.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
+                {
+                    var userProfile = new UserProfile() { Id = user.Id };
+                    userProfileService.Create(userProfile);
                     return RedirectToAction("Index", "Home");
+                }
                 else
                 {
-                    foreach(string error in result.Errors)
+                    foreach (string error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -96,6 +108,14 @@ namespace MyInstagram.WebUI.Controllers
             }
             ViewBag.returnUrl = returnUrl;
             return View(model);
+        }
+
+
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            //return View("Login");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

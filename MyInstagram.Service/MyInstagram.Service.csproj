@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,21 +51,21 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Infrastructure\EntityService.cs" />
     <Compile Include="Infrastructure\IEntityService.cs" />
+    <Compile Include="Infrastructure\ServiceNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\UserArticleService.cs" />
+    <Compile Include="Services\UserProfileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyInstagram.Data\MyInstagram.Data.csproj">
       <Project>{940520ea-a53d-42a7-845f-10642f041958}</Project>
       <Name>MyInstagram.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyInstagram.Domain\MyInstagram.Domain.csproj">
-      <Project>{42462b7a-028c-4c74-a450-6dcbcd37d155}</Project>
-      <Name>MyInstagram.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
