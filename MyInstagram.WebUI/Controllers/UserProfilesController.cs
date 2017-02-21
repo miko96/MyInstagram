@@ -90,7 +90,7 @@ namespace MyInstagram.WebUI.Controllers
             {
                 db.Entry(userProfile).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Page", "User");
             }
             ViewBag.Id = new SelectList(db.Users, "Id", "Email", userProfile.Id);
             return View(userProfile);

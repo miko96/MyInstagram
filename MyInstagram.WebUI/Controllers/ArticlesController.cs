@@ -13,18 +13,18 @@ using MyInstagram.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Collections;
+using Microsoft.AspNet.Identity.Owin;
+using MyInstagram.Data.Infrastructure;
 
 namespace MyInstagram.WebUI.Controllers
 {
     public class ArticlesController : Controller
     {
         IArticleService articleService;
-        IUserArticleService userArticleService;
         //MyInstagramEntities my = new MyInstagramEntities();
-        public ArticlesController(IArticleService articleService , IUserArticleService userArticleService)
+        public ArticlesController(IArticleService articleService )
         {
             this.articleService = articleService;
-            this.userArticleService = userArticleService;
         }
 
         // GET: Articles
@@ -40,25 +40,24 @@ namespace MyInstagram.WebUI.Controllers
             return View();
         }
 
-        public PartialViewResult Photos()
+        public PartialViewResult Photos(string userId)
         {
-            //var articleViewModels = new List<ArticleViewModel>();
-            //var articles = articleService.GetAll();
-
-            //foreach(var article in articles)
-            //{
-            //    var articleViewModel = new ArticleViewModel()
-            //    {
-            //        ArticleID = article.ArticleID,
-            //        Description = article.Description,
-            //        Image = File(article.ImageData, article.ImageMimeType) 
-            //    };
-            //    articleViewModels.Add(articleViewModel);
-            //}           
-            //return PartialView("Photos", articleViewModels.AsEnumerable<ArticleViewModel>());
-            var a = articleService.GetAll();
-            return PartialView("Photos", articleService.GetAll());
+            var articles = articleService.FindBy(x => x.applicationUserId == userId).Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description }).AsEnumerable();
+            return PartialView("Photos", articles);
         }
+
+
+        public PartialViewResult FollowingPhotos()
+        {
+            string userId = User.Identity.GetUserId();
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.Users.Include(x => x.Following).Where(x => x.Id == userId).FirstOrDefault();
+            var following = user.Following.Select(x => x.Id);
+
+            var articles = articleService.FindBy(x => following.Contains(x.applicationUserId));
+            return PartialView("FollowingPhotos", articles);
+        }
+
         public FileContentResult GetImage(int articleId) {
             Article article = articleService.GetById(articleId);
             if (article != null)
@@ -105,17 +104,18 @@ namespace MyInstagram.WebUI.Controllers
                     article.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(article.ImageData, 0, image.ContentLength);
                    
-                }               
-                articleService.Create(article);
+                }
+                //article.UserArticles.Add()               
+                
+                //sarticleService.Create(article);
+                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var user = userManager.FindById(User.Identity.GetUserId());
+                user.UserArticles.Add(article);
 
-                var userArticle = new UserArticle()
-                {
-                    ApplicationUserID = User.Identity.GetUserId(),
-                    ArticleId = article.ArticleID
-                };
+                userManager.Update(user);
 
-                userArticleService.Create(userArticle);
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Page","User");
             }
 
             return View(article);

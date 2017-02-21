@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MyInstagram.Data.Entities.ApplicationUser>
+
+@{
+    ViewBag.Title = "UserList";
+}
+
+<h2>UserList</h2>
+
+@*<table class="table">
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                User Name
+            </th>
+
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    *
+                </td>
+                <td>
+                    <a href="@Url.Action("Index","Home",new { username = user.UserName})">
+                        @user.UserName
+                    </a>
+                </td>
+
+            </tr>
+
+        }
+    </table>*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <ol class="list-group text-center">
+                @foreach (var user in Model)
+            {
+                    <li class="list-group-item">
+                        
+                        <a href="@Url.Action("Index","Home",new { username = user.UserName})">
+                            <img class="pull-left img-circle" src="http://placehold.it/30x30" alt="">
+                            <h1>@user.UserName</h1>
+                        </a>
+                    </li>
+
+                }
+
+            </ol>
+        </div>
+    </div>
+</div>

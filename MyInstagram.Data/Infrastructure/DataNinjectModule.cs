@@ -10,7 +10,7 @@ namespace MyInstagram.Data.Infrastructure
         {
             Bind<IUnitOfWork>().To<UnitOfWork>();
             Bind<IArticleRepository>().To<ArticleRepository>();
-            Bind<IUserArticleRepository>().To<UserArticleRepository>();
+           // Bind<IUserArticleRepository>().To<UserArticleRepository>();
             Bind<IUserProfileRepository>().To<UserProfileRepository>();
             
         }

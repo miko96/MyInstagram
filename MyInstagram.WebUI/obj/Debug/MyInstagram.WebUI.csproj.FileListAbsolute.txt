@@ -83,3 +83,11 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\WebGrease.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\Antlr3.Runtime.pdb
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Optimization.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Net.Http.Formatting.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.WebHost.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Net.Http.Formatting.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.WebHost.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.Owin.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.Owin.xml

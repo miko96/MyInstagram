@@ -8,7 +8,7 @@ namespace MyInstagram.Service.Infrastructure
         public override void Load()
         {
             Bind<IArticleService>().To<ArticleService>();
-            Bind<IUserArticleService>().To<UserArticleService>();
+            //Bind<IUserArticleService>().To<UserArticleService>();
             Bind<IUserProfileService>().To<UserProfileService>();
         }
     }

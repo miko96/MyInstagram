@@ -10,15 +10,22 @@ namespace MyInstagram.Data.Entities
 
         public UserProfile UserProfile { get; set; }
 
-        public ICollection<UserArticle> UserArticles { get; set; }
+        public ICollection<Article> UserArticles { get; set; }
+
+        public ICollection<ApplicationUser> Followers { get; set; }
+        public ICollection<ApplicationUser> Following { get; set; }
+
         public ICollection<ArticleComment> UserComments { get; set; }
         public ICollection<ArticleLike> UserLikes { get; set; }
         
         public ApplicationUser()
         {
             DateCreated = DateTime.Now;
-            UserArticles = new List<UserArticle>();
-           
+            UserArticles = new List<Article>();
+            Followers = new List<ApplicationUser>();
+            Following = new List<ApplicationUser>();          
         }
+
+
     }
 }

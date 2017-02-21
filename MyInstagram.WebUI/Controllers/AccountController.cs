@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using System.Data.Entity;
 
 
 namespace MyInstagram.WebUI.Controllers
@@ -116,6 +117,39 @@ namespace MyInstagram.WebUI.Controllers
             AuthenticationManager.SignOut();
             //return View("Login");
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult FollowToUser(string userId)
+        {
+            var followingUser = UserManager.Users.Where(x => x.Id == userId).FirstOrDefault();
+            var currentUserId = User.Identity.GetUserId();
+            var user = UserManager.Users.Include(x=>x.Following).Where(x => x.Id == currentUserId).FirstOrDefault();
+            var isFollower = user.Following.Contains(followingUser);
+
+            if (isFollower)
+            {
+                user.Following.Remove(followingUser);
+            }
+            else
+            {
+                user.Following.Add(followingUser);
+            }
+            UserManager.Update(user);
+
+            return RedirectToAction("Index", "Home", new { followingUser.UserName});
+        }
+
+        public ActionResult UserList()
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var users = userManager.Users.AsEnumerable();
+
+            //string str = "";
+            //foreach (var user in users)
+            //{
+            //    str += user.UserName;
+            //}
+            return View(users);
         }
     }
 }

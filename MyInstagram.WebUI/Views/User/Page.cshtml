@@ -1,0 +1,73 @@
+﻿@model MyInstagram.WebUI.Models.UserViewModel
+
+@{
+    ViewBag.Title = "UserPage";
+}
+
+<h2>UserPage</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img class="img-responsive img-circle" style="margin:0 auto" src="http://placehold.it/256x256" alt="">
+            <h1>
+                @Model.FirstName @Model.LastName
+                @if (Model.IsAuthenticated)
+                {
+                    if (Model.IsOwnPage)
+                    {
+                        @Html.ActionLink("Edit Profile", "Edit", "UserProfiles", new { id = Model.UserId }, new { @class = "btn btn-primary" });
+                    }
+                    else
+                    {
+                        string a = "Follow";
+                        if (Model.IsFollowing)
+                        {
+                            a = "Unfollow";
+                        }
+                        using (Ajax.BeginForm(new AjaxOptions
+                        {
+                            UpdateTargetId = "FollowersCount",
+                            HttpMethod = "POST",
+                            Url = "/api/art/FollowUnfollow",
+                            OnSuccess = "suc",
+                            OnFailure = "fail"
+                        }))
+                        {
+                            <input type="text" name="fromUserId" hidden="hidden" value=@Model.CurrentUserId />
+                            <input type="text" name="toUserId" hidden="hidden" value=@Model.UserId />
+                            <input id="subbtn" type="submit" value=@a class="btn btn-primary" />
+                        }
+                    }
+                }
+
+
+            </h1>
+
+            <ul class="list-inline">
+                <li>
+
+                    <span id="ArticlesCount" class="badge pull-right">@Model.ArticlesCount</span>
+                    Articles
+                </li>
+                <li>
+                    <a href="/User/FollowersList?userId=@Model.UserId">
+                        <span id="FollowersCount" class="badge pull-right">@Model.FollowersCount</span>
+                        Followers
+                    </a>
+                </li>
+                <li>
+                    <a href="/User/FollowingList?userId=@Model.UserId">
+                        <span id="FollowingCount" class="badge pull-right">@Model.FollowingCount</span>
+                        Following
+                    </a>
+                </li>
+            </ul>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        @Html.Action("Photos", "Articles", new { userId = Model.UserId })
+    </div>
+</div>

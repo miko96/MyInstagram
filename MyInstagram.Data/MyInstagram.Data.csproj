@@ -97,6 +97,7 @@
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\ArticleComment.cs" />
     <Compile Include="Entities\ArticleLike.cs" />
+    <Compile Include="Entities\Follower.cs" />
     <Compile Include="Entities\UserArticle.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
@@ -105,25 +106,14 @@
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201702111850139_MigrationDb.cs" />
-    <Compile Include="Migrations\201702111850139_MigrationDb.Designer.cs">
-      <DependentUpon>201702111850139_MigrationDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyInstagramEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ArticleRepository.cs" />
-    <Compile Include="Repository\UserArticleRepository.cs" />
     <Compile Include="Repository\UserProfileRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702111850139_MigrationDb.resx">
-      <DependentUpon>201702111850139_MigrationDb.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

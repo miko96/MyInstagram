@@ -7,6 +7,8 @@ using MyInstagram.Service.Infrastructure;
 using MyInstagram.Data.Infrastructure;
 using MyInstagram.Data.Repository;
 using MyInstagram.Data.Entities;
+using System.Linq.Expressions;
+
 namespace MyInstagram.Service.Services
 {
     public class ArticleService : EntityService<Article>, IArticleService
@@ -25,10 +27,16 @@ namespace MyInstagram.Service.Services
         {
             return articleRepository.GetById(id);
         }
+        public IEnumerable<Article> FindBy(System.Linq.Expressions.Expression<Func<Article, bool>> predicate)
+        {
+            return articleRepository.FindBy(predicate);
+        }
     }
 
     public interface IArticleService : IEntityService<Article>
     {
         Article GetById(int id);
+        IEnumerable<Article> FindBy(System.Linq.Expressions.Expression<Func<Article, bool>> predicate);
+       
     }
 }

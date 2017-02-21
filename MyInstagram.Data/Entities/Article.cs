@@ -14,14 +14,17 @@ namespace MyInstagram.Data.Entities
         public string ImageMimeType { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public ICollection<UserArticle> UserArticles { get; set; }
+        public string applicationUserId { get; set; }
+        public ApplicationUser applicationUser { get; set; }
+
+
         public ICollection<ArticleLike> ArticleLikes { get; set; }
         public ICollection<ArticleComment> ArticleComments { get; set; }
 
         public Article()
         {
             DateCreated = DateTime.Now;
-            UserArticles = new List<UserArticle>();
+            
         }
     }
 }
