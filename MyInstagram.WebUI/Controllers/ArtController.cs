@@ -19,12 +19,9 @@ namespace MyInstagram.WebUI.Controllers
 {
     public class ArtController : ApiController
     {
-        MyInstagramEntities my = new MyInstagramEntities();
+        //MyInstagramEntities my = new MyInstagramEntities();
 
-        public IEnumerable<Article> Get()
-        {
-            return my.Articles.AsEnumerable();
-        }
+        
 
 
         [HttpPost]

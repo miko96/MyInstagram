@@ -27,7 +27,7 @@ namespace MyInstagram.Service.Services
         {
             return articleRepository.GetById(id);
         }
-        public IEnumerable<Article> FindBy(System.Linq.Expressions.Expression<Func<Article, bool>> predicate)
+        public IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate)
         {
             return articleRepository.FindBy(predicate);
         }
@@ -36,7 +36,7 @@ namespace MyInstagram.Service.Services
     public interface IArticleService : IEntityService<Article>
     {
         Article GetById(int id);
-        IEnumerable<Article> FindBy(System.Linq.Expressions.Expression<Func<Article, bool>> predicate);
+        IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate);
        
     }
 }

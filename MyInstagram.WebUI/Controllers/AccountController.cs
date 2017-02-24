@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System.Data.Entity;
-
+using MyInstagram.WebUI.Infrastructure;
 
 namespace MyInstagram.WebUI.Controllers
 {
@@ -49,7 +49,7 @@ namespace MyInstagram.WebUI.Controllers
             return View();
         }
 
-
+        [RedirectAuthenticatedRequests]
         public ViewResult Register()
         {
             return View();
@@ -58,6 +58,7 @@ namespace MyInstagram.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -67,9 +68,14 @@ namespace MyInstagram.WebUI.Controllers
 
                 if (result.Succeeded)
                 {
-                    var userProfile = new UserProfile() { Id = user.Id };
+                    var userProfile = new UserProfile()
+                    {
+                        Id = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName
+                    };
                     userProfileService.Create(userProfile);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
@@ -77,11 +83,12 @@ namespace MyInstagram.WebUI.Controllers
                     {
                         ModelState.AddModelError("", error);
                     }
-                }            
+                }
             }
             return View(model);
         }
 
+        [RedirectAuthenticatedRequests]
         public ViewResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;
@@ -91,9 +98,15 @@ namespace MyInstagram.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
-            if(user == null)
-                ModelState.AddModelError("", "Неверный логин или пароль");
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Error login or password");
+                return View(model);
+            }
             else
             {
                 ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
@@ -103,52 +116,43 @@ namespace MyInstagram.WebUI.Controllers
                 {
                     IsPersistent = true
                 }, claim);
-                if (String.IsNullOrEmpty(returnUrl))
-                    return RedirectToAction("Index", "Home");
-                return Redirect(returnUrl);
+
             }
-            ViewBag.returnUrl = returnUrl;
-            return View(model);
+            return RedirectToAction("Page", "User");
         }
 
 
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            //return View("Login");
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult FollowToUser(string userId)
-        {
-            var followingUser = UserManager.Users.Where(x => x.Id == userId).FirstOrDefault();
-            var currentUserId = User.Identity.GetUserId();
-            var user = UserManager.Users.Include(x=>x.Following).Where(x => x.Id == currentUserId).FirstOrDefault();
-            var isFollower = user.Following.Contains(followingUser);
+        //public ActionResult FollowToUser(string userId)
+        //{
+        //    var followingUser = UserManager.Users.Where(x => x.Id == userId).FirstOrDefault();
+        //    var currentUserId = User.Identity.GetUserId();
+        //    var user = UserManager.Users.Include(x => x.Following).Where(x => x.Id == currentUserId).FirstOrDefault();
+        //    var isFollower = user.Following.Contains(followingUser);
 
-            if (isFollower)
-            {
-                user.Following.Remove(followingUser);
-            }
-            else
-            {
-                user.Following.Add(followingUser);
-            }
-            UserManager.Update(user);
+        //    if (isFollower)
+        //    {
+        //        user.Following.Remove(followingUser);
+        //    }
+        //    else
+        //    {
+        //        user.Following.Add(followingUser);
+        //    }
+        //    UserManager.Update(user);
 
-            return RedirectToAction("Index", "Home", new { followingUser.UserName});
-        }
+        //    return RedirectToAction("Index", "Home", new { followingUser.UserName });
+        //}
 
         public ActionResult UserList()
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var users = userManager.Users.AsEnumerable();
 
-            //string str = "";
-            //foreach (var user in users)
-            //{
-            //    str += user.UserName;
-            //}
             return View(users);
         }
     }

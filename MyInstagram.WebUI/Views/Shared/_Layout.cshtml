@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/bootstrap-theme.min.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
     <title>@ViewBag.Title</title>
 </head>
 
@@ -15,9 +16,9 @@
                 <div class="container">
                     <ul class="nav nav-justified">
                         <li class="active"><a href="@Url.Action("Index","Articles")"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <li><a href="@Url.Action("List", "User")"><span class="glyphicon glyphicon-search"></span></a></li>
+                        <li><a href="@Url.Action("FindUser", "User")"><span class="glyphicon glyphicon-search"></span></a></li>
                         <li><a href="@Url.Action("Create", "Articles")"><span class="glyphicon glyphicon-camera"></span></a></li>
-                        <li><a href="@Url.Action("Page", "User")"><span class="glyphicon glyphicon-user"></span></a></li>
+                        <li><a href="@Url.Action("Page", "User", new { userName ="" })"><span class="glyphicon glyphicon-user"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -27,8 +28,43 @@
         @RenderBody()
     </div>
 
-    <script src="~/scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/scripts/jquery-1.9.1.min.js"></script>    
     <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+
     <script src="~/scripts/myScript.js"></script>
+    <script type="text/javascript">
+    function CheckFileSize() {
+        var input;
+
+        if (!window.FileReader) {
+            alert("The file API isn't supported on this browser yet.");
+            return;
+        }
+
+        input = document.getElementById('profileimageinput');
+        if (!input) {
+            alert("Um, couldn't find the fileinput element.");
+        }
+
+        var elm = document.getElementById('inputfileerror');
+        var filesize = input.files[0].size / 1024 / 1024;
+        var filetype = input.files[0].type;
+
+
+        if (filetype === "image/jpeg" || filetype === "image/bmp" || filetype === "image/png") {
+            if (filesize > 0.5) {
+                elm.innerHTML = "error size > 0.5 MB";
+                input.value = "";
+            }
+            else
+                elm.innerHTML = "";
+        }
+        else {
+            elm.innerHTML = "error type! only: .jpeg .bmp .png";
+            input.value = "";
+        }
+    }
+    </script>
 </body>
 </html>

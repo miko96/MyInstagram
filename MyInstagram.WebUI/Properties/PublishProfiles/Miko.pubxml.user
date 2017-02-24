@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2017 21:29:05</publishTime>
     </File>
     <File Include="App_Data/MyInstagramEntities.mdf">
-      <publishTime>02/20/2017 23:18:33</publishTime>
+      <publishTime>02/24/2017 00:30:59</publishTime>
     </File>
     <File Include="App_Data/MyInstagramEntities_log.ldf">
-      <publishTime>02/20/2017 23:18:33</publishTime>
+      <publishTime>02/24/2017 00:30:59</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/22/2013 08:43:40</publishTime>
@@ -82,13 +82,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2012 15:23:58</publishTime>
     </File>
     <File Include="bin/MyInstagram.Data.dll">
-      <publishTime>02/21/2017 16:36:35</publishTime>
+      <publishTime>02/23/2017 23:58:06</publishTime>
     </File>
     <File Include="bin/MyInstagram.Service.dll">
-      <publishTime>02/21/2017 16:36:36</publishTime>
+      <publishTime>02/23/2017 23:58:07</publishTime>
     </File>
     <File Include="bin/MyInstagram.WebUI.dll">
-      <publishTime>02/21/2017 16:36:40</publishTime>
+      <publishTime>02/23/2017 23:58:10</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/03/2014 20:33:56</publishTime>
@@ -205,7 +205,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2017 14:20:48</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>01/30/2017 14:38:22</publishTime>
+      <publishTime>02/23/2017 22:14:56</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>01/30/2017 14:20:48</publishTime>
@@ -262,16 +262,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2017 14:38:28</publishTime>
     </File>
     <File Include="Scripts/myScript.js">
-      <publishTime>02/20/2017 17:08:47</publishTime>
+      <publishTime>02/23/2017 21:28:25</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>02/01/2017 22:56:57</publishTime>
+      <publishTime>02/22/2017 23:06:16</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>02/01/2017 21:32:52</publishTime>
+      <publishTime>02/22/2017 23:03:41</publishTime>
     </File>
     <File Include="Views/Articles/Create.cshtml">
-      <publishTime>02/11/2017 23:06:26</publishTime>
+      <publishTime>02/23/2017 21:36:33</publishTime>
     </File>
     <File Include="Views/Articles/Delete.cshtml">
       <publishTime>02/07/2017 23:15:13</publishTime>
@@ -289,7 +289,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2017 17:15:36</publishTime>
     </File>
     <File Include="Views/Articles/Photos.cshtml">
-      <publishTime>02/20/2017 22:58:00</publishTime>
+      <publishTime>02/23/2017 23:57:45</publishTime>
     </File>
     <File Include="Views/Home/Edit.cshtml">
       <publishTime>02/11/2017 23:13:08</publishTime>
@@ -297,14 +297,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>02/18/2017 16:17:49</publishTime>
     </File>
+    <File Include="Views/Profile/Edit.cshtml">
+      <publishTime>02/23/2017 21:34:14</publishTime>
+    </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/18/2017 17:54:25</publishTime>
+      <publishTime>02/23/2017 22:17:44</publishTime>
     </File>
     <File Include="Views/User/List.cshtml">
-      <publishTime>02/18/2017 18:50:35</publishTime>
+      <publishTime>02/24/2017 00:04:40</publishTime>
     </File>
     <File Include="Views/User/Page.cshtml">
-      <publishTime>02/20/2017 21:35:07</publishTime>
+      <publishTime>02/23/2017 22:18:53</publishTime>
     </File>
     <File Include="Views/User/Test.cshtml">
       <publishTime>02/20/2017 17:03:26</publishTime>
@@ -319,7 +322,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2017 15:26:15</publishTime>
     </File>
     <File Include="Views/UserProfiles/Edit.cshtml">
-      <publishTime>02/13/2017 15:26:18</publishTime>
+      <publishTime>02/21/2017 18:55:41</publishTime>
     </File>
     <File Include="Views/UserProfiles/Index.cshtml">
       <publishTime>02/15/2017 18:35:23</publishTime>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace MyInstagram.Data.Infrastructure
 {
@@ -39,7 +40,16 @@ namespace MyInstagram.Data.Infrastructure
 
         public virtual void Edit(T entity)
         {
-            entities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            entities.Entry(entity).State = EntityState.Modified;            
+        }
+
+        public virtual void UpdateProperties(T entity, params Expression<Func<T, object>>[] properties)
+        {
+            dbset.Attach(entity);
+            foreach (var property in properties)
+            {
+                entities.Entry(entity).Property(property).IsModified = true;
+            }
         }
 
         public virtual void Save()

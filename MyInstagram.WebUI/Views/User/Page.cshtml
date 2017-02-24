@@ -9,14 +9,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <img class="img-responsive img-circle" style="margin:0 auto" src="http://placehold.it/256x256" alt="">
+            @*<img class="img-responsive img-circle" style="margin:0 auto" src="http://placehold.it/256x256" alt="">*@
+            <img class="img-circle" style="margin:0 auto" width="256" height="256" src="@Url.Action("GetPageImage", "User",new { Id = Model.UserId })" alt="">
             <h1>
                 @Model.FirstName @Model.LastName
                 @if (Model.IsAuthenticated)
                 {
                     if (Model.IsOwnPage)
                     {
-                        @Html.ActionLink("Edit Profile", "Edit", "UserProfiles", new { id = Model.UserId }, new { @class = "btn btn-primary" });
+                        @Html.ActionLink("Edit Profile", "Edit", "Profile", null, new { @class = "btn btn-primary" });
                     }
                     else
                     {
@@ -67,6 +68,9 @@
         </div>
     </div>
 
+    
+</div>
+<div class="container-fluid">
     <div class="row">
         @Html.Action("Photos", "Articles", new { userId = Model.UserId })
     </div>

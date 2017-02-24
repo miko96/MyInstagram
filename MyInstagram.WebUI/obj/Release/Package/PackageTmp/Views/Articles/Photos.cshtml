@@ -1,19 +1,33 @@
 ﻿@model IEnumerable<MyInstagram.Data.Entities.Article>
-
-@foreach (var article in Model)
+@if (Model != null)
 {
+    foreach (var article in Model)
+    {
 
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <img class="img-responsive" src="@Url.Action("GetImage", "Articles",
-                                       new { article.ArticleID })" alt="abc">
-            @article.Description
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img class="postimg" style="height:inherit" src="@Url.Action("GetImage", "Articles",
+           new { article.ArticleID })" alt="abc">
+                <hr />
+                <span>Description:</span>
+                @article.Description
+                <hr />
+                @Ajax.ActionLink("Delete", "Delete", "Articles", new { id = article.ArticleID }, new AjaxOptions { OnSuccess = "sccss" }, new { @onclick = "clk(this)", @class = "btn btn-primary" })
+            </div>
         </div>
+
+    }
+    <script type="text/javascript">
+        function clk(elem) {
+            elem.text = "Deleted";
+            //el.style.display = 'none';
+        }
+    </script>
+}
+else
+{
+    <div class="col-md-12">
+        <h4 class="text-center">now you don't have any photos</h4>
     </div>
-    @*<div class="thumbnail">
-       <img class="img-responsive" src="@Url.Action("GetImage", "Articles",
-                                       new { article.ArticleID })" alt="abc">
-       @article.Description;
-    </div>*@
 }
 

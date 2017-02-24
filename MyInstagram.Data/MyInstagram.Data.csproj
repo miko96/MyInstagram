@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\UserProfileConfiguration.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\ArticleComment.cs" />

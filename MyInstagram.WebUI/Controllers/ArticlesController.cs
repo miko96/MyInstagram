@@ -42,7 +42,13 @@ namespace MyInstagram.WebUI.Controllers
 
         public PartialViewResult Photos(string userId)
         {
-            var articles = articleService.FindBy(x => x.applicationUserId == userId).Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description }).AsEnumerable();
+            var artCount = articleService.FindBy(x => x.applicationUserId == userId).Count();
+
+            if (artCount == 0)
+                return PartialView("Photos", null);
+
+            var articles = articleService.FindBy(x => x.applicationUserId == userId)
+                .Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description }).AsEnumerable();
             return PartialView("Photos", articles);
         }
 
@@ -57,6 +63,8 @@ namespace MyInstagram.WebUI.Controllers
             var articles = articleService.FindBy(x => following.Contains(x.applicationUserId));
             return PartialView("FollowingPhotos", articles);
         }
+
+
 
         public FileContentResult GetImage(int articleId) {
             Article article = articleService.GetById(articleId);
@@ -103,18 +111,17 @@ namespace MyInstagram.WebUI.Controllers
                     article.ImageMimeType = image.ContentType;
                     article.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(article.ImageData, 0, image.ContentLength);
-                   
                 }
-                //article.UserArticles.Add()               
-                
-                //sarticleService.Create(article);
+                else
+                {
+                    ModelState.AddModelError("", "Add image, please");
+                    return View(article);
+                }
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = userManager.FindById(User.Identity.GetUserId());
                 user.UserArticles.Add(article);
 
                 userManager.Update(user);
-
-
                 return RedirectToAction("Page","User");
             }
 
@@ -152,20 +159,20 @@ namespace MyInstagram.WebUI.Controllers
         //    return View(article);
         //}
 
-        //// GET: Articles/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Article article = db.Articles.Find(id);
-        //    if (article == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(article);
-        //}
+        // GET: Articles/Delete/5
+        public ActionResult Delete(int id)
+        {
+
+            var article = articleService.GetById(id);
+            if (article != null)
+            {
+                if (article.applicationUserId == User.Identity.GetUserId())
+                {
+                    articleService.Delete(article);
+                }
+            }
+            return null;
+        }
 
         //// POST: Articles/Delete/5
         //[HttpPost, ActionName("Delete")]

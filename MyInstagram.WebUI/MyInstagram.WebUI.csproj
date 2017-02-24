@@ -264,8 +264,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Infrastructure\RedirectAuthenticatedRequests.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModel.cs" />
+    <Compile Include="Models\FindUserViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -297,6 +299,9 @@
     <Content Include="Views\User\Page.cshtml" />
     <Content Include="Views\Articles\FollowingPhotos.cshtml" />
     <Content Include="Views\User\Test.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\User\FindUser.cshtml" />
+    <Content Include="Views\User\FindUserList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -306,7 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Error\" />
-    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyInstagram.Data\MyInstagram.Data.csproj">

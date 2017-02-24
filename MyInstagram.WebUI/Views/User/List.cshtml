@@ -1,54 +1,31 @@
-﻿@model IEnumerable<MyInstagram.Data.Entities.ApplicationUser>
+﻿@model IEnumerable<MyInstagram.Data.Entities.UserProfile>
 
 @{
     ViewBag.Title = "UserList";
 }
 
-<h2>UserList</h2>
-
-@*<table class="table">
-        <tr>
-            <th>
-                Number
-            </th>
-            <th>
-                User Name
-            </th>
-
-        </tr>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>
-                    *
-                </td>
-                <td>
-                    <a href="@Url.Action("Index","Home",new { username = user.UserName})">
-                        @user.UserName
-                    </a>
-                </td>
-
-            </tr>
-
-        }
-    </table>*@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <ol class="list-group text-center">
-                @foreach (var user in Model)
-            {
-                    <li class="list-group-item">
-                        
-                        <a href="@Url.Action("Index","Home",new { username = user.UserName})">
-                            <img class="pull-left img-circle" src="http://placehold.it/30x30" alt="">
-                            <h1>@user.UserName</h1>
-                        </a>
-                    </li>
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4">
+                <hr />
+                <h5 class="text-center">User list</h5>
+                <ul class="list-unstyled">
+                    @foreach (var profile in Model)
+                    {
+                        <li class="media">
+                            <img class="pull-left img-circle" src="@Url.Action("GetPageImage", "User",new { Id = profile.Id })" alt="Generic placeholder image" width="64" height="64">
+                            <div class="media-body">
+                                <h4> @profile.FirstName @profile.LastName</h4>
+                                <span>
+                                    <strong>user name:</strong><strong class="text-primary text-uppercase">@profile.AppUser.UserName</strong>
+                                    <strong>sex:</strong><strong class="text-primary text-uppercase">@profile.Sex</strong>
+                                    <strong>country:</strong><strong class="text-primary text-uppercase">@profile.Country</strong>
+                                </span>
+                            </div>
+                        </li>
+                    }
+                </ul>
 
-                }
-
-            </ol>
+            </div>
         </div>
     </div>
-</div>

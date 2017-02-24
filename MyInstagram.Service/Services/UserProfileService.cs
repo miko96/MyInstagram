@@ -2,6 +2,10 @@
 using MyInstagram.Data.Infrastructure;
 using MyInstagram.Data.Repository;
 using MyInstagram.Data.Entities;
+using System.Linq.Expressions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyInstagram.Service.Services
 {
@@ -17,9 +21,32 @@ namespace MyInstagram.Service.Services
             this.userProfileRepository = userProfileRepository;
         }
 
+        public UserProfile GetById(string Id)
+        {
+            return userProfileRepository.GetById(Id);
+        }
+
+        public IEnumerable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate)
+        {
+            return userProfileRepository.FindBy(predicate);
+        }
+
+        public void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties)
+        {
+            userProfileRepository.UpdateProperties(entity, properties);
+            unitOfWork.Commit();
+        }
+         public IQueryable<UserProfile> GetProfiles()
+        {
+            return userProfileRepository.GetProfiles();
+        }
+
     }
     public interface IUserProfileService : IEntityService<UserProfile>
     {
-
+        UserProfile GetById(string Id);
+        IQueryable<UserProfile> GetProfiles();
+        IEnumerable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate);
+        void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties);
     }
 }

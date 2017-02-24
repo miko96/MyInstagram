@@ -1,35 +1,31 @@
-﻿
-@{
-    ViewBag.Title = "Test";
-}
-
-<h2>Test</h2>
-
-
-@Ajax.ActionLink("Follow", "Get", new AjaxOptions
-{
-    UpdateTargetId = "ArticlesList",
-    HttpMethod = "GET",
-    Url = "/api/art",
-    OnSuccess = "suc"
-})
-
-@using (Ajax.BeginForm(new AjaxOptions
-{
-    UpdateTargetId = "ArticlesList",
-    HttpMethod = "POST",
-    Url = "/api/art/FollowUnfollow",
-    OnSuccess = "suc",
-    OnFailure = "fail"
-}))
-{
-    <input type="text" name="userId" hidden="hidden" value="sasasdasda"/>
-    <input type="text" name="toUserId" hidden="hidden" value="12312313" />
-    <input id="subbtn" type="submit" value="Поиск" class="btn btn-primary" />
-}
-<div id="ArticlesList">
-
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-5">
+            <ul class="list-unstyled">
+                <li class="media">
+                    <img class="pull-left" src="http://placehold.it/64x64" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5 >List-based media object</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </li>
+                <li class="media">
+                    <img class="pull-left" src="http://placehold.it/64x64" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5>List-based media object</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </li>
+                <li class="media">
+                    <img class="pull-left" src="http://placehold.it/64x64" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5>List-based media object</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </li>
+               
+            </ul>
+          
+        </div>
+    </div>
 </div>
-<script>
-
-</script>
