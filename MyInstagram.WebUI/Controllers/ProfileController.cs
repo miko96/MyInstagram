@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MyInstagram.WebUI.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile
@@ -20,10 +21,6 @@ namespace MyInstagram.WebUI.Controllers
             this.userProfileService = userProfileService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Edit()
         {

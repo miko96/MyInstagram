@@ -13,9 +13,11 @@
                     @foreach (var profile in Model)
                     {
                         <li class="media">
-                            <img class="pull-left img-circle" src="@Url.Action("GetPageImage", "User",new { Id = profile.Id })" alt="Generic placeholder image" width="64" height="64">
+                            <img class="pull-left img-circle"  src="@Url.Action("GetPageImage", "User",new { Id = profile.Id })" alt="Generic placeholder image" width="72" height="72">
                             <div class="media-body">
-                                <h4> @profile.FirstName @profile.LastName</h4>
+                                <a href="@Url.Action("Page", "User", new { userName = profile.AppUser.UserName })">
+                                    <h4> @profile.FirstName @profile.LastName</h4>
+                                </a>
                                 <span>
                                     <strong>user name:</strong><strong class="text-primary text-uppercase">@profile.AppUser.UserName</strong>
                                     <strong>sex:</strong><strong class="text-primary text-uppercase">@profile.Sex</strong>

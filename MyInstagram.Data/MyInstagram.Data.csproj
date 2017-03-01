@@ -98,8 +98,6 @@
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\ArticleComment.cs" />
     <Compile Include="Entities\ArticleLike.cs" />
-    <Compile Include="Entities\Follower.cs" />
-    <Compile Include="Entities\UserArticle.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\BaseRepository.cs" />

@@ -29,7 +29,9 @@ namespace MyInstagram.Data.Entities
         public Article()
         {
             DateCreated = DateTime.Now;
-            
+            ArticleLikes = new List<ArticleLike>();
+
+
         }
     }
 }

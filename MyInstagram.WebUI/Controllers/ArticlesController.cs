@@ -18,27 +18,58 @@ using MyInstagram.Data.Infrastructure;
 
 namespace MyInstagram.WebUI.Controllers
 {
+    [Authorize]
     public class ArticlesController : Controller
     {
         IArticleService articleService;
-        //MyInstagramEntities my = new MyInstagramEntities();
+        int blockSize = 4;
+        ///MyInstagramEntities my = new MyInstagramEntities();
         public ArticlesController(IArticleService articleService )
         {
             this.articleService = articleService;
         }
 
-        // GET: Articles
-        //public async Task<ActionResult> Index()
-        //{
-        //    IEnumerable<Article> articles = await my.Articles.ToListAsync();
-        //    IEnumerable<Article> art = new List<Article>();
-        //    return View(ar);
-        //}
-        public ActionResult Index()
+      
+   
+        public ActionResult Index([System.Web.Http.FromBody] int count = 0)
         {
-           
-            return View();
+            string userId = User.Identity.GetUserId();
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager
+                .Users
+                .Include(x => x.Following)
+                .Where(x => x.Id == userId)
+                .FirstOrDefault();
+
+            var following = user.Following.Select(x => x.Id);
+
+            if (Request.IsAjaxRequest())
+            {
+                var articlesCount = articleService
+                    .FindBy(x => following.Contains(x.applicationUserId)).Count();
+                if (count < articlesCount)
+                {
+                    int numberOfBlock = count / blockSize;
+                   
+                    var articlesBlock = articleService
+                                .FindBy(x => following.Contains(x.applicationUserId))
+                                .OrderBy(x => x.DateCreated)
+                                .Reverse()
+                                .Skip(numberOfBlock * blockSize)
+                                .Take(blockSize);
+                    return PartialView("ArticlesBlock", articlesBlock);
+                }
+                return null;
+            }
+            var articles = articleService
+                .FindBy(x => following.Contains(x.applicationUserId))
+                .OrderBy(x=>x.DateCreated)
+                .Reverse()
+                .Take(blockSize);
+            
+            return View(articles);
         }
+
 
         public PartialViewResult Photos(string userId)
         {
@@ -48,8 +79,18 @@ namespace MyInstagram.WebUI.Controllers
                 return PartialView("Photos", null);
 
             var articles = articleService.FindBy(x => x.applicationUserId == userId)
-                .Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description }).AsEnumerable();
+                .Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description, applicationUserId = x.applicationUserId })
+                .Reverse()
+                .AsEnumerable();
             return PartialView("Photos", articles);
+        }
+
+        public PartialViewResult DeletePhotoButton(string userId, int articleId)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            if (userId == currentUserId)
+                return PartialView(articleId);
+            return null;
         }
 
 
@@ -73,25 +114,11 @@ namespace MyInstagram.WebUI.Controllers
                 return File(article.ImageData, article.ImageMimeType);
             }
             else
-            {
+            {                
                 return null;
             }
         }
 
-        //// GET: Articles/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Article article = db.Articles.Find(id);
-        //    if (article == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(article);
-        //}
 
         // GET: Articles/Create
         public ActionResult Create()
@@ -128,36 +155,9 @@ namespace MyInstagram.WebUI.Controllers
             return View(article);
         }
 
-        //// GET: Articles/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Article article = db.Articles.Find(id);
-        //    if (article == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(article);
-        //}
 
-        //// POST: Articles/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "ArticleID,Description,ImageData,ImageMimeType,DateCreated")] Article article)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(article).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(article);
-        //}
+
+
 
         // GET: Articles/Delete/5
         public ActionResult Delete(int id)
@@ -173,25 +173,5 @@ namespace MyInstagram.WebUI.Controllers
             }
             return null;
         }
-
-        //// POST: Articles/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Article article = db.Articles.Find(id);
-        //    db.Articles.Remove(article);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

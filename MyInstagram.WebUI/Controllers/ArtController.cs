@@ -17,6 +17,7 @@ using System.Data.Entity;
 
 namespace MyInstagram.WebUI.Controllers
 {
+    [Authorize]
     public class ArtController : ApiController
     {
         //MyInstagramEntities my = new MyInstagramEntities();

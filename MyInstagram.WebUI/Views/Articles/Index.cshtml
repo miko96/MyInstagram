@@ -1,26 +1,53 @@
-﻿@model MyInstagram.Data.Entities.Article
+﻿@model IEnumerable<MyInstagram.Data.Entities.Article>
 
 @{
     ViewBag.Title = "Index";
 }
-
-
-
-
-@Ajax.ActionLink("Get photos", // <-- Text to display
-                 "FollowingPhotos", // <-- Action Method Name
-                 new AjaxOptions
-                 {
-                     UpdateTargetId = "ArticlesList", // <-- DOM element ID to update
-                     InsertionMode = InsertionMode.Replace, // <-- Replace the content of DOM element
-                     HttpMethod = "GET" // <-- HTTP method
-                 })
-
 <div class="container">
     <div class="row">
-        <div id="ArticlesList">
+        <div id="Articles">
+            @foreach (var article in Model)
+            {
 
+                <div class="col-md-6 col-md-offset-3">
+
+
+                    <div class="thumbnail">
+                        <a class="text-center"  href="@Url.Action("Page", "User", new { userName = article.applicationUser.UserName })">
+                        <h3 >@article.applicationUser.UserName</h3>
+                        </a>
+                        <hr />
+                        <img class="img-responsive" style="width:100%; display: block;" src="@Url.Action("GetImage", "Articles",
+                                new { article.ArticleID })" alt="abc">
+                        <hr />
+                        <strong>Description:</strong>
+                        @article.Description
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+        <div class="col-md-12 text-center">
+            <input type="button" value="show more" id="btn" class="btn btn-danger" />
+            </div>
+            
+        </div>
 </div>
+@section Scripts
+    {
+    <script type="text/javascript">
+        $('#btn').click(function () {
+            var a = $('#Articles').children().length;
+            $.ajax({
+                url: '@Url.Action("Index", "Articles")',
+                data: { count: a },
+                type: "POST",
+                success: function (data) {
+                    $('#Articles').append(data);
+                }
+            });
+        })
+        //$(document).ready(function () { alert(a)});
+    </script>
+}
+
 

@@ -37,9 +37,6 @@ namespace MyInstagram.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        //public System.Data.Entity.DbSet<MyInstagram.Data.Entities.ApplicationUser> ApplicationUsers { get; set; }
-
-        //public System.Data.Entity.DbSet<MyInstagram.Data.Entities.ApplicationUser> ApplicationUsers { get; set; }
     }
 
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<MyInstagramEntities>
@@ -51,7 +48,7 @@ namespace MyInstagram.Data
         }
         public void PerformInitialSetup(MyInstagramEntities context)
         {
-            // настройки конфигурации контекста будут указываться здесь
+            
         }
     }
 }

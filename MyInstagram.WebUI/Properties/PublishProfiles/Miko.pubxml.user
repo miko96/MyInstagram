@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2017 21:29:05</publishTime>
     </File>
     <File Include="App_Data/MyInstagramEntities.mdf">
-      <publishTime>02/24/2017 00:30:59</publishTime>
+      <publishTime>02/28/2017 20:45:22</publishTime>
     </File>
     <File Include="App_Data/MyInstagramEntities_log.ldf">
-      <publishTime>02/24/2017 00:30:59</publishTime>
+      <publishTime>02/28/2017 20:45:22</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/22/2013 08:43:40</publishTime>
@@ -82,13 +82,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2012 15:23:58</publishTime>
     </File>
     <File Include="bin/MyInstagram.Data.dll">
-      <publishTime>02/23/2017 23:58:06</publishTime>
+      <publishTime>02/28/2017 20:45:19</publishTime>
     </File>
     <File Include="bin/MyInstagram.Service.dll">
-      <publishTime>02/23/2017 23:58:07</publishTime>
+      <publishTime>02/28/2017 20:45:19</publishTime>
     </File>
     <File Include="bin/MyInstagram.WebUI.dll">
-      <publishTime>02/23/2017 23:58:10</publishTime>
+      <publishTime>02/28/2017 20:45:22</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/03/2014 20:33:56</publishTime>
@@ -228,6 +228,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="packages.config">
       <publishTime>02/19/2017 23:40:12</publishTime>
     </File>
+    <File Include="ProfileImage/profileimage.png">
+      <publishTime>02/28/2017 20:29:46</publishTime>
+    </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/30/2017 14:20:47</publishTime>
     </File>
@@ -265,16 +268,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/23/2017 21:28:25</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>02/22/2017 23:06:16</publishTime>
+      <publishTime>02/28/2017 19:53:20</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>02/22/2017 23:03:41</publishTime>
     </File>
+    <File Include="Views/Articles/ArticlesBlock.cshtml">
+      <publishTime>02/28/2017 19:40:18</publishTime>
+    </File>
     <File Include="Views/Articles/Create.cshtml">
-      <publishTime>02/23/2017 21:36:33</publishTime>
+      <publishTime>02/26/2017 23:27:32</publishTime>
     </File>
     <File Include="Views/Articles/Delete.cshtml">
       <publishTime>02/07/2017 23:15:13</publishTime>
+    </File>
+    <File Include="Views/Articles/DeletePhotoButton.cshtml">
+      <publishTime>02/27/2017 00:15:49</publishTime>
     </File>
     <File Include="Views/Articles/Details.cshtml">
       <publishTime>02/11/2017 21:42:39</publishTime>
@@ -286,10 +295,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/18/2017 18:36:48</publishTime>
     </File>
     <File Include="Views/Articles/Index.cshtml">
-      <publishTime>02/19/2017 17:15:36</publishTime>
+      <publishTime>02/28/2017 19:49:42</publishTime>
     </File>
     <File Include="Views/Articles/Photos.cshtml">
-      <publishTime>02/23/2017 23:57:45</publishTime>
+      <publishTime>02/28/2017 19:41:23</publishTime>
     </File>
     <File Include="Views/Home/Edit.cshtml">
       <publishTime>02/11/2017 23:13:08</publishTime>
@@ -298,16 +307,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/18/2017 16:17:49</publishTime>
     </File>
     <File Include="Views/Profile/Edit.cshtml">
-      <publishTime>02/23/2017 21:34:14</publishTime>
+      <publishTime>02/24/2017 18:12:03</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/23/2017 22:17:44</publishTime>
+      <publishTime>02/26/2017 02:12:03</publishTime>
+    </File>
+    <File Include="Views/User/FindUser.cshtml">
+      <publishTime>02/25/2017 00:18:44</publishTime>
+    </File>
+    <File Include="Views/User/FindUserList.cshtml">
+      <publishTime>02/26/2017 23:46:42</publishTime>
     </File>
     <File Include="Views/User/List.cshtml">
-      <publishTime>02/24/2017 00:04:40</publishTime>
+      <publishTime>02/26/2017 23:33:41</publishTime>
     </File>
     <File Include="Views/User/Page.cshtml">
-      <publishTime>02/23/2017 22:18:53</publishTime>
+      <publishTime>02/28/2017 19:45:59</publishTime>
     </File>
     <File Include="Views/User/Test.cshtml">
       <publishTime>02/20/2017 17:03:26</publishTime>
@@ -334,7 +349,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2017 14:38:21</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/21/2017 16:36:42</publishTime>
+      <publishTime>02/28/2017 20:45:24</publishTime>
     </File>
   </ItemGroup>
 </Project>

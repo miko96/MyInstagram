@@ -10,6 +10,8 @@ namespace MyInstagram.WebUI.Models
     {
         public int ArticleID { get; set; }
         public string Description { get; set; }
-        public FileContentResult Image { get; set; }
+        
+        public string ArticleUserId { get; set; }
+
     }
 }

@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
-    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <title>@ViewBag.Title</title>
 </head>
 
@@ -16,7 +15,7 @@
                 <div class="container">
                     <ul class="nav nav-justified">
                         <li class="active"><a href="@Url.Action("Index","Articles")"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <li><a href="@Url.Action("List", "User")"><span class="glyphicon glyphicon-search"></span></a></li>
+                        <li><a href="@Url.Action("FindUser", "User")"><span class="glyphicon glyphicon-search"></span></a></li>
                         <li><a href="@Url.Action("Create", "Articles")"><span class="glyphicon glyphicon-camera"></span></a></li>
                         <li><a href="@Url.Action("Page", "User", new { userName ="" })"><span class="glyphicon glyphicon-user"></span></a></li>
                     </ul>
@@ -27,10 +26,12 @@
     <div class="container">
         @RenderBody()
     </div>
-
-    <script src="~/scripts/jquery-1.9.1.min.js"></script>
-    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection(name: "Scripts", required: false)
     <script src="~/scripts/myScript.js"></script>
+    
     <script type="text/javascript">
     function CheckFileSize() {
         var input;

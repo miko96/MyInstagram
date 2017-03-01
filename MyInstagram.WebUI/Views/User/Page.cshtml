@@ -4,8 +4,6 @@
     ViewBag.Title = "UserPage";
 }
 
-<h2>UserPage</h2>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -18,6 +16,7 @@
                     if (Model.IsOwnPage)
                     {
                         @Html.ActionLink("Edit Profile", "Edit", "Profile", null, new { @class = "btn btn-primary" });
+                        @Html.ActionLink("Log out", "Logout", "Account", null, new { @class = "btn btn-primary", @style = "margin-left: 20px;" });
                     }
                     else
                     {
@@ -75,3 +74,14 @@
         @Html.Action("Photos", "Articles", new { userId = Model.UserId })
     </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function clk(elem) {
+            elem.text = "Deleted";
+            elem.className = "btn btn-danger";
+            //el.style.display = 'none';
+        }
+    </script>
+}

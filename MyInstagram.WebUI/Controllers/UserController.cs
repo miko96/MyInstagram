@@ -129,15 +129,24 @@ namespace MyInstagram.WebUI.Controllers
         [HttpPost]
         public ActionResult FindUser(FindUserViewModel userData)
         {
+            if (userData.FirstName == null
+                && userData.LastName == null
+                && userData.County == null
+                && userData.Sex == null
+                && userData.UserName == null)
+                return PartialView("FindUserList", null);
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             if (userData.UserName != null)
             {
-                var user = userManager.Users
-                    .Include(x => x.UserProfile)
-                    .Where(x => x.UserName == userData.UserName).FirstOrDefault();
-                if (user != null)
-                    return PartialView("FindUserList");
+                var userProfile = userManager.Users
+                    .Where(x => x.UserName == userData.UserName)
+                    .Select(x => x.UserProfile).Include(x=>x.AppUser)
+                    .AsEnumerable();
+                if (userProfile.Count() != 0) 
+                    return PartialView("FindUserList", userProfile);
+                return PartialView("FindUserList", null);
             }
+
             var profiles = userProfileService.GetProfiles();
 
             if (userData.FirstName != null)
@@ -152,9 +161,7 @@ namespace MyInstagram.WebUI.Controllers
 
             if (profilesModel.Count() != 0)
                 return PartialView("FindUserList", profilesModel);
-            //var userProfiles = userProfileService.FindBy(x=> x.
-
-            return null;
+            return PartialView("FindUserList", null);
         }
 
 
@@ -163,20 +170,18 @@ namespace MyInstagram.WebUI.Controllers
             UserProfile userProfile = userProfileService.GetById(Id);
             if (userProfile != null)
             {
-                if(userProfile.ImageData != null)
-                return File(userProfile.ImageData, userProfile.ImageMimeType);
-                return null;
+                if (userProfile.ImageData != null)
+                    return File(userProfile.ImageData, userProfile.ImageMimeType);
+                else
+                {
+                    string imgPath = Server.MapPath("~/ProfileImage/profileimage.png");
+                    var imgBytes = System.IO.File.ReadAllBytes(imgPath);
+                    string contentType = "image/png";
+                    return File(imgBytes, contentType);
+                }
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
-
-        public ActionResult Test()
-        {
-            return View();
-        }
     }
 }

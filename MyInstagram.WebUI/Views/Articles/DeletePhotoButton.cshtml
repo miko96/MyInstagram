@@ -1,0 +1,8 @@
+﻿@model int
+@Ajax.ActionLink("Delete", "Delete", "Articles", 
+    new { id = Model }, new AjaxOptions { }, 
+    new { @onclick = "clk(this)", @class = "btn btn-primary" })
+
+
+
+

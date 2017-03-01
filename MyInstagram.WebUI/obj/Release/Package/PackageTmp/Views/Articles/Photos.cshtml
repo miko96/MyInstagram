@@ -5,29 +5,24 @@
     {
 
         <div class="col-md-4">
-            <div class="thumbnail">
-                <img class="postimg" style="height:inherit" src="@Url.Action("GetImage", "Articles",
+            <div class="thumbnail" style="width:100%; height:450px; overflow:auto">
+                <img class="postimg" style="width:100%; height:300px; display: block;" src="@Url.Action("GetImage", "Articles",
            new { article.ArticleID })" alt="abc">
                 <hr />
-                <span>Description:</span>
+                <strong >Description:</strong>
                 @article.Description
                 <hr />
-                @Ajax.ActionLink("Delete", "Delete", "Articles", new { id = article.ArticleID }, new AjaxOptions { OnSuccess = "sccss" }, new { @onclick = "clk(this)", @class = "btn btn-primary" })
+                @Html.Action("DeletePhotoButton", "Articles", new { userId = article.applicationUserId, articleId = article.ArticleID })
             </div>
         </div>
 
-    }
-    <script type="text/javascript">
-        function clk(elem) {
-            elem.text = "Deleted";
-            //el.style.display = 'none';
-        }
-    </script>
+    }    
 }
 else
 {
     <div class="col-md-12">
-        <h4 class="text-center">now you don't have any photos</h4>
+        <h4 class="text-center">you don't have any photos</h4>
     </div>
 }
+
 
