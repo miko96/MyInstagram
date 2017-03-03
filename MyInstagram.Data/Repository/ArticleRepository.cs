@@ -17,12 +17,12 @@ namespace MyInstagram.Data.Repository
 
         public override IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate)
         {
-            return dbset.Include(x => x.applicationUser).Where(predicate).AsEnumerable();
+            return dbset.Include(x => x.ApplicationUser).Where(predicate).AsEnumerable();
             //return base.FindBy(predicate);
         }
         public Article GetById(int id)
         {
-            return FindBy(x => x.ArticleID == id).FirstOrDefault();
+            return FindBy(x => x.ArticleId == id).FirstOrDefault();
         }
     }
 

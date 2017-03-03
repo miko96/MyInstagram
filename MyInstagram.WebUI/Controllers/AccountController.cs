@@ -63,7 +63,7 @@ namespace MyInstagram.WebUI.Controllers
                 {
                     var userProfile = new UserProfile()
                     {
-                        Id = user.Id,
+                        UserId = user.Id,
                         FirstName = model.FirstName,
                         LastName = model.LastName
                     };

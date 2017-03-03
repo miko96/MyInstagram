@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,18 +21,49 @@ namespace MyInstagram.WebUI.Controllers
     public class UserController : Controller
     {
         // GET: User
-        //MyInstagramEntities my = new MyInstagramEntities();
+        MyInstagramEntities my = new MyInstagramEntities();
         IUserProfileService userProfileService;
-        public UserController(IUserProfileService userProfileService)
+        IArticleService articleService;
+        public UserController(IUserProfileService userProfileService, IArticleService articleService)
         {
             this.userProfileService = userProfileService;
+            this.articleService = articleService;
         }
 
+
+        public ActionResult Test()
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.Users.Include(x=>x.UsersComments).Where(x => x.UserName == "miko").FirstOrDefault();
+            
+            var article = articleService.GetById(1);
+            article.ArticleLikes.Add(new ArticleLike
+            {
+                ApplicationUserID = user.Id,
+                ArticleId = article.ArticleId
+            });
+            article.ArticleComments.Add(new ArticleComment
+            {
+                ApplicationUserID = user.Id,
+                ArticleId = article.ArticleId,
+                CommentText = "mycomment"
+            });
+
+            //articleService.Update(article);
+            return null;
+        }
+
+        public ActionResult Test1()
+        {
+            var article = articleService.GetById(1);
+            articleService.Delete(article);
+            return null;
+        }
         public ActionResult List()
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var userProfiles = userManager.Users
-                .Select(x => x.UserProfile).Include(x => x.AppUser).AsEnumerable();
+                .Select(x => x.UserProfile).Include(x => x.ApplicationUser).AsEnumerable();
             return View("List", userProfiles);
         }
 
@@ -39,7 +71,7 @@ namespace MyInstagram.WebUI.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var userProfiles = userManager.Users
-                .Select(x => x.UserProfile).Include(x => x.AppUser).AsEnumerable();
+                .Select(x => x.UserProfile).Include(x => x.ApplicationUser).AsEnumerable();
             return PartialView("List", userProfiles);
         }
 
@@ -54,7 +86,7 @@ namespace MyInstagram.WebUI.Controllers
             var userProfiles = userManager.Users.Where(x => x.Id == userId)
                .SelectMany(x => x.Followers)
                .Select(x => x.UserProfile)
-               .Include(x => x.AppUser)
+               .Include(x => x.ApplicationUser)
                .AsEnumerable();
             return View("List", userProfiles);
         }
@@ -70,7 +102,7 @@ namespace MyInstagram.WebUI.Controllers
             var userProfiles = userManager.Users.Where(x => x.Id == userId)
                 .SelectMany(x => x.Following)
                 .Select(x => x.UserProfile)
-                .Include(x => x.AppUser)
+                .Include(x => x.ApplicationUser)
                 .AsEnumerable();
             return View("List", userProfiles);
         }
@@ -140,7 +172,7 @@ namespace MyInstagram.WebUI.Controllers
             {
                 var userProfile = userManager.Users
                     .Where(x => x.UserName == userData.UserName)
-                    .Select(x => x.UserProfile).Include(x=>x.AppUser)
+                    .Select(x => x.UserProfile).Include(x=>x.ApplicationUser)
                     .AsEnumerable();
                 if (userProfile.Count() != 0) 
                     return PartialView("FindUserList", userProfile);
@@ -157,7 +189,7 @@ namespace MyInstagram.WebUI.Controllers
                 profiles = profiles.Where(x => x.Sex == userData.Sex);
             if (userData.County != null)
                 profiles = profiles.Where(x => x.Country == userData.County);
-            var profilesModel = profiles.Include(x => x.AppUser).AsEnumerable();
+            var profilesModel = profiles.Include(x => x.ApplicationUser).AsEnumerable();
 
             if (profilesModel.Count() != 0)
                 return PartialView("FindUserList", profilesModel);
@@ -182,6 +214,7 @@ namespace MyInstagram.WebUI.Controllers
             }
             return null;
         }
+
 
     }
 }

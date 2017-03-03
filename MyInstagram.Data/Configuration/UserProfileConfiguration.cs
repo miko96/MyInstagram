@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace MyInstagram.Data.Configuration
 {
-    //public class UserProfileConfiguration : EntityTypeConfiguration<UserProfile>
-    //{
-    //    public UserProfileConfiguration()
-    //    {
-            
-    //        Property(f => f.FirstName).IsRequired().HasMaxLength(15);
-    //    }
-    //}
+    public class UserProfileConfiguration : EntityTypeConfiguration<UserProfile>
+    {
+        public UserProfileConfiguration()
+        {
+            HasKey(x => x.UserId);
+           
+            //Property(f => f.FirstName).IsRequired().HasMaxLength(15);
+        }
+    }
 }

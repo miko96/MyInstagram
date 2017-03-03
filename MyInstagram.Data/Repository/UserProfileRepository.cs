@@ -16,8 +16,8 @@ namespace MyInstagram.Data.Repository
             : base(context) { }
 
         public UserProfile GetById(string Id)
-        {            
-            return FindBy(x => x.Id == Id).FirstOrDefault();
+        {
+            return FindBy(x => x.UserId == Id).FirstOrDefault();
         }
         public IQueryable<UserProfile> GetProfiles()
         {

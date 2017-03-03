@@ -46,13 +46,13 @@ namespace MyInstagram.WebUI.Controllers
             if (Request.IsAjaxRequest())
             {
                 var articlesCount = articleService
-                    .FindBy(x => following.Contains(x.applicationUserId)).Count();
+                    .FindBy(x => following.Contains(x.ApplicationUserId)).Count();
                 if (count < articlesCount)
                 {
                     int numberOfBlock = count / blockSize;
                    
                     var articlesBlock = articleService
-                                .FindBy(x => following.Contains(x.applicationUserId))
+                                .FindBy(x => following.Contains(x.ApplicationUserId))
                                 .OrderBy(x => x.DateCreated)
                                 .Reverse()
                                 .Skip(numberOfBlock * blockSize)
@@ -62,7 +62,7 @@ namespace MyInstagram.WebUI.Controllers
                 return null;
             }
             var articles = articleService
-                .FindBy(x => following.Contains(x.applicationUserId))
+                .FindBy(x => following.Contains(x.ApplicationUserId))
                 .OrderBy(x=>x.DateCreated)
                 .Reverse()
                 .Take(blockSize);
@@ -73,13 +73,13 @@ namespace MyInstagram.WebUI.Controllers
 
         public PartialViewResult Photos(string userId)
         {
-            var artCount = articleService.FindBy(x => x.applicationUserId == userId).Count();
+            var artCount = articleService.FindBy(x => x.ApplicationUserId == userId).Count();
 
             if (artCount == 0)
                 return PartialView("Photos", null);
 
-            var articles = articleService.FindBy(x => x.applicationUserId == userId)
-                .Select(x =>new Article { ArticleID = x.ArticleID, Description = x.Description, applicationUserId = x.applicationUserId })
+            var articles = articleService.FindBy(x => x.ApplicationUserId == userId)
+                .Select(x =>new Article { ArticleId = x.ArticleId, Description = x.Description, ApplicationUserId = x.ApplicationUserId })
                 .Reverse()
                 .AsEnumerable();
             return PartialView("Photos", articles);
@@ -101,7 +101,7 @@ namespace MyInstagram.WebUI.Controllers
             var user = userManager.Users.Include(x => x.Following).Where(x => x.Id == userId).FirstOrDefault();
             var following = user.Following.Select(x => x.Id);
 
-            var articles = articleService.FindBy(x => following.Contains(x.applicationUserId));
+            var articles = articleService.FindBy(x => following.Contains(x.ApplicationUserId));
             return PartialView("FollowingPhotos", articles);
         }
 
@@ -166,7 +166,7 @@ namespace MyInstagram.WebUI.Controllers
             var article = articleService.GetById(id);
             if (article != null)
             {
-                if (article.applicationUserId == User.Identity.GetUserId())
+                if (article.ApplicationUserId == User.Identity.GetUserId())
                 {
                     articleService.Delete(article);
                 }
