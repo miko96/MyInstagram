@@ -6,6 +6,9 @@ using Ninject;
 using MyInstagram.Data;
 using System.Configuration;
 using Ninject.Web.Common;
+using Microsoft.AspNet.Identity;
+using MyInstagram.Data.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MyInstagram.WebUI.Infrastructure
 {
@@ -20,9 +23,9 @@ namespace MyInstagram.WebUI.Infrastructure
         public IEnumerable<object> GetServices(Type serviceType) { return kernel.GetAll(serviceType); }
 
         private void AddBindings()
-        {         
+        {
             kernel.Bind<DbContext>().To<MyInstagramEntities>().InRequestScope()
-                .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings);          
+               .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings);
         }
     }
 }

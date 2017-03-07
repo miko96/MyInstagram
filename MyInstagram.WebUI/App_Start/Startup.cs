@@ -14,8 +14,8 @@ namespace MyInstagram.WebUI
         public void Configuration(IAppBuilder app)
         {
             // настраиваем контекст и менеджер
-            app.CreatePerOwinContext<MyInstagramEntities>(MyInstagramEntities.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            //app.CreatePerOwinContext<MyInstagramEntities>(MyInstagramEntities.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,

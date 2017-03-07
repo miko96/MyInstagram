@@ -8,7 +8,6 @@ namespace MyInstagram.Data.Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
         private DbContext dbContext;
-        
         public UnitOfWork(DbContext context)
         {
             dbContext = context;

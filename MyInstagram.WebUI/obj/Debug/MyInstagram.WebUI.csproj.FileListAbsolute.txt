@@ -91,3 +91,5 @@ D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.WebHost.xml
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.Owin.dll
 D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\System.Web.Http.Owin.xml
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\AutoMapper.dll
+D:\Учеба\C# training\Projects2\MyInstagram\MyInstagram.WebUI\bin\AutoMapper.xml

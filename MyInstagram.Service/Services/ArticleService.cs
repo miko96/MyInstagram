@@ -16,8 +16,8 @@ namespace MyInstagram.Service.Services
         IUnitOfWork unitOfWork;
         IArticleRepository articleRepository;
 
-        public ArticleService(IUnitOfWork unitOfWork, IArticleRepository articleRepository) 
-            :base(unitOfWork, articleRepository)
+        public ArticleService(IUnitOfWork unitOfWork, IArticleRepository articleRepository)
+            : base(unitOfWork, articleRepository)
         {
             this.unitOfWork = unitOfWork;
             this.articleRepository = articleRepository;
@@ -25,18 +25,18 @@ namespace MyInstagram.Service.Services
 
         public Article GetById(int id)
         {
-            return articleRepository.GetById(id);
+            return FindBy(x => x.ArticleId == id).FirstOrDefault();
         }
-        public IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate)
-        {
-            return articleRepository.FindBy(predicate);
-        }
+        //public IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate)
+        //{
+        //    return articleRepository.FindBy(predicate);
+        //}
     }
 
     public interface IArticleService : IEntityService<Article>
     {
         Article GetById(int id);
-        IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate);
-       
+        //IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate);
+
     }
 }

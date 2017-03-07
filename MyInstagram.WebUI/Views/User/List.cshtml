@@ -8,18 +8,18 @@
         <div class="row">
             <div class="col-md-5 col-md-offset-4">
                 <hr />
-                <h5 class="text-center">User list</h5>
+                <h5 class="text-center">@ViewBag.ViewName</h5>
                 <ul class="list-unstyled">
                     @foreach (var profile in Model)
                     {
                         <li class="media">
-                            <img class="pull-left img-circle"  src="@Url.Action("GetPageImage", "User",new { Id = profile.Id })" alt="Generic placeholder image" width="72" height="72">
+                            <img class="pull-left img-circle"  src="@Url.Action("GetProfileImage", "Profile",new { Id = profile.UserId })" alt="Generic placeholder image" width="72" height="72">
                             <div class="media-body">
-                                <a href="@Url.Action("Page", "User", new { userName = profile.AppUser.UserName })">
+                                <a href="@Url.Action("Page", "User", new { userName = profile.ApplicationUser.UserName })">
                                     <h4> @profile.FirstName @profile.LastName</h4>
                                 </a>
                                 <span>
-                                    <strong>user name:</strong><strong class="text-primary text-uppercase">@profile.AppUser.UserName</strong>
+                                    <strong>user name:</strong><strong class="text-primary text-uppercase">@profile.ApplicationUser.UserName</strong>
                                     <strong>sex:</strong><strong class="text-primary text-uppercase">@profile.Sex</strong>
                                     <strong>country:</strong><strong class="text-primary text-uppercase">@profile.Country</strong>
                                 </span>

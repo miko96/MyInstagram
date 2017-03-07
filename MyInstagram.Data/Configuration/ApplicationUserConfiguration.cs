@@ -24,7 +24,6 @@ namespace MyInstagram.Data.Configuration
                     m.MapRightKey("FollowingId");
                     m.ToTable("Followers");
                 });
-
             //HasMany(x => x.FavoriteArticles).WithMany(x => x.UsersLikes)
             //    .Map(m =>
             //    {
@@ -32,8 +31,6 @@ namespace MyInstagram.Data.Configuration
             //        m.MapRightKey("ArticleId");
             //        m.ToTable("ArticleLikes");
             //    });
-
-
         }
     }
 }

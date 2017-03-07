@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyInstagram.Data.Entities
 {
@@ -16,9 +12,9 @@ namespace MyInstagram.Data.Entities
         public DateTime DateCreated { get; set; }
 
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public ICollection<ArticleLike> ArticleLikes { get; set; }
-        public ICollection<ArticleComment> ArticleComments { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ICollection<ArticleLike> ArticleLikes { get; set; }
+        public virtual ICollection<ArticleComment> ArticleComments { get; set; }
 
         public Article()
         {

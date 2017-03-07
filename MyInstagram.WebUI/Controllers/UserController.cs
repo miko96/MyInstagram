@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using MyInstagram.Data;
 using MyInstagram.Data.Entities;
 using MyInstagram.Data.Infrastructure;
 using MyInstagram.Service.Services;
 using MyInstagram.WebUI.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,89 +16,60 @@ namespace MyInstagram.WebUI.Controllers
     public class UserController : Controller
     {
         // GET: User
-        MyInstagramEntities my = new MyInstagramEntities();
+        //MyInstagramEntities my = new MyInstagramEntities();
         IUserProfileService userProfileService;
+        IUserService userService;
         IArticleService articleService;
-        public UserController(IUserProfileService userProfileService, IArticleService articleService)
+        ApplicationUserManager userManager;
+
+        public UserController(IUserProfileService userProfileService, IArticleService articleService,
+            ApplicationUserManager userManager, IUserService userService)
         {
             this.userProfileService = userProfileService;
+            this.userService = userService;
             this.articleService = articleService;
+            this.userManager = userManager;
         }
 
-
-        public ActionResult Test()
+        //???????????????????????????????
+        public string FollowUnfollowUser(string toUserId)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager.Users.Include(x=>x.UsersComments).Where(x => x.UserName == "miko").FirstOrDefault();
-            
-            var article = articleService.GetById(1);
-            article.ArticleLikes.Add(new ArticleLike
-            {
-                ApplicationUserID = user.Id,
-                ArticleId = article.ArticleId
-            });
-            article.ArticleComments.Add(new ArticleComment
-            {
-                ApplicationUserID = user.Id,
-                ArticleId = article.ArticleId,
-                CommentText = "mycomment"
-            });
+            string userId = User.Identity.GetUserId();
+            var user = userManager.FindById(userId);
+            var followingUser = userManager.FindById(toUserId);
+            if (followingUser == null)
+                return null;
 
-            //articleService.Update(article);
-            return null;
+            var isFollow = userService.isFollow(userId, toUserId);
+            if (isFollow)
+                user.Following.Remove(followingUser);
+            else
+                user.Following.Add(followingUser);
+            userManager.Update(user);
+            return followingUser.Followers.Count().ToString();
         }
 
-        public ActionResult Test1()
+        [ChildActionOnly]
+        public PartialViewResult UserList()
         {
-            var article = articleService.GetById(1);
-            articleService.Delete(article);
-            return null;
-        }
-        public ActionResult List()
-        {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var userProfiles = userManager.Users
-                .Select(x => x.UserProfile).Include(x => x.ApplicationUser).AsEnumerable();
-            return View("List", userProfiles);
-        }
-
-        public ActionResult PartList()
-        {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var userProfiles = userManager.Users
-                .Select(x => x.UserProfile).Include(x => x.ApplicationUser).AsEnumerable();
+            ViewBag.ViewName = "All users";
+            var userProfiles = userProfileService.GetProfiles().ToList();
             return PartialView("List", userProfiles);
         }
 
         public ActionResult FollowersList(string userId)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var user = userManager.Users
-            //    .Include(x => x.Followers)
-            //    .Include(x=>x.UserProfile)
-            //    .Where(x => x.Id == userId)
-            //    .FirstOrDefault();
-            var userProfiles = userManager.Users.Where(x => x.Id == userId)
-               .SelectMany(x => x.Followers)
-               .Select(x => x.UserProfile)
-               .Include(x => x.ApplicationUser)
-               .AsEnumerable();
+            var userProfiles = userService.GetFollowers(userId)
+                .Select(x => x.UserProfile).ToList();
+            ViewBag.ViewName = "Followers";
             return View("List", userProfiles);
         }
 
         public ActionResult FollowingList(string userId)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var user = userManager.Users
-            //    .Include(x => x.Following)
-            //    .Include(x => x.UserProfile)
-            //    .Where(x => x.Id == userId)
-            //    .FirstOrDefault();
-            var userProfiles = userManager.Users.Where(x => x.Id == userId)
-                .SelectMany(x => x.Following)
-                .Select(x => x.UserProfile)
-                .Include(x => x.ApplicationUser)
-                .AsEnumerable();
+            var userProfiles = userService.GetFollowing(userId)
+                .Select(x => x.UserProfile).ToList();
+            ViewBag.ViewName = "Following";
             return View("List", userProfiles);
         }
 
@@ -112,46 +78,58 @@ namespace MyInstagram.WebUI.Controllers
             if (userName == null)
                 userName = User.Identity.GetUserName();
 
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager.Users
-                .Include(x => x.UserProfile)
-                .Where(x => x.UserName == userName).FirstOrDefault();
-
+            var user = userService.GetByName(userName);
             if (user == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var currentUserId = User.Identity.GetUserId();
-            var isOwnPage = (user.Id == currentUserId);
-
-            bool isFollowing = false;
-            if (!isOwnPage)
-            {
-                var currentUser = userManager.Users
-                    .Include(x => x.Following)
-                    .Where(x => x.Id == currentUserId).FirstOrDefault();
-                isFollowing = currentUser.Following.Contains(user);
-            }
-
-
-            int articlesCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.UserArticles).Count();
-            int followersCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Followers).Count();
-            int followingCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Following).Count();
-
-            var usModel = new UserViewModel()
+            var pageModel = new PageViewModel
             {
                 UserId = user.Id,
-                CurrentUserId = currentUserId,
                 FirstName = user.UserProfile.FirstName,
                 LastName = user.UserProfile.LastName,
-                IsAuthenticated = true,
-                IsOwnPage = isOwnPage,
-                IsFollowing = isFollowing,
-                ArticlesCount = articlesCount,
-                FollowersCount = followersCount,
-                FollowingCount = followingCount
-
+                ArticlesCount = user.UserArticles.Count,
+                FollowersCount = user.Followers.Count,
+                FollowingCount = user.Following.Count
             };
-            return View(usModel);
+            var currentUserId = User.Identity.GetUserId();
+            //ViewBag.CurrentUserId = currentUserId;
+            ViewBag.IsOwnPage = (user.Id == currentUserId);
+            var isFollow = userService.isFollow(currentUserId, user.Id);
+            ViewBag.buttonName = isFollow ? "Unfollow" : "Follow";
+
+            return View(pageModel);
+            //var currentUserId = User.Identity.GetUserId();
+            //var isOwnPage = (user.Id == currentUserId);
+
+            //bool isFollowing = false;
+            //if (!isOwnPage)
+            //{
+            //    var currentUser = userManager.Users
+            //        .Include(x => x.Following)
+            //        .Where(x => x.Id == currentUserId).FirstOrDefault();
+            //    isFollowing = currentUser.Following.Contains(user);
+            //}
+
+
+            //int articlesCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.UserArticles).Count();
+            //int followersCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Followers).Count();
+            //int followingCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Following).Count();
+
+            //var usModel = new UserViewModel()
+            //{
+            //    UserId = user.Id,
+            //    CurrentUserId = currentUserId,
+            //    FirstName = user.UserProfile.FirstName,
+            //    LastName = user.UserProfile.LastName,
+            //    IsAuthenticated = true,
+            //    IsOwnPage = isOwnPage,
+            //    IsFollowing = isFollowing,
+            //    ArticlesCount = articlesCount,
+            //    FollowersCount = followersCount,
+            //    FollowingCount = followingCount
+
+            //};
+
         }
 
         public ActionResult FindUser()
@@ -161,25 +139,30 @@ namespace MyInstagram.WebUI.Controllers
         [HttpPost]
         public ActionResult FindUser(FindUserViewModel userData)
         {
+            //return null;
             if (userData.FirstName == null
                 && userData.LastName == null
                 && userData.County == null
                 && userData.Sex == null
                 && userData.UserName == null)
                 return PartialView("FindUserList", null);
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var profiles = userProfileService.GetProfiles();
+            //    //var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             if (userData.UserName != null)
             {
-                var userProfile = userManager.Users
-                    .Where(x => x.UserName == userData.UserName)
-                    .Select(x => x.UserProfile).Include(x=>x.ApplicationUser)
-                    .AsEnumerable();
-                if (userProfile.Count() != 0) 
+                //var userProfile = userManager.Users
+                //    .Where(x => x.UserName == userData.UserName)
+                //    .Select(x => x.UserProfile).Include(x => x.ApplicationUser)
+                //    .AsEnumerable();
+                var userProfile = profiles
+                    .Where(x => x.ApplicationUser.UserName == userData.UserName)
+                    .ToList();
+                if (userProfile.Count() != 0)
                     return PartialView("FindUserList", userProfile);
                 return PartialView("FindUserList", null);
             }
 
-            var profiles = userProfileService.GetProfiles();
+            //    
 
             if (userData.FirstName != null)
                 profiles = profiles.Where(x => x.FirstName == userData.FirstName);
@@ -189,32 +172,11 @@ namespace MyInstagram.WebUI.Controllers
                 profiles = profiles.Where(x => x.Sex == userData.Sex);
             if (userData.County != null)
                 profiles = profiles.Where(x => x.Country == userData.County);
-            var profilesModel = profiles.Include(x => x.ApplicationUser).AsEnumerable();
+            var profilesModel = profiles.Include(x => x.ApplicationUser).ToList();
 
             if (profilesModel.Count() != 0)
                 return PartialView("FindUserList", profilesModel);
             return PartialView("FindUserList", null);
         }
-
-
-        public FileContentResult GetPageImage(string Id)
-        {
-            UserProfile userProfile = userProfileService.GetById(Id);
-            if (userProfile != null)
-            {
-                if (userProfile.ImageData != null)
-                    return File(userProfile.ImageData, userProfile.ImageMimeType);
-                else
-                {
-                    string imgPath = Server.MapPath("~/ProfileImage/profileimage.png");
-                    var imgBytes = System.IO.File.ReadAllBytes(imgPath);
-                    string contentType = "image/png";
-                    return File(imgBytes, contentType);
-                }
-            }
-            return null;
-        }
-
-
     }
 }

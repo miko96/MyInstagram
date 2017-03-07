@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyInstagram.Data;
 using MyInstagram.Data.Entities;
 using MyInstagram.Service.Services;
-using MyInstagram.WebUI.Models;
 using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
-using System.Collections;
-using Microsoft.AspNet.Identity.Owin;
-using MyInstagram.Data.Infrastructure;
+using MyInstagram.WebUI.Models;
 
 namespace MyInstagram.WebUI.Controllers
 {
@@ -22,69 +14,57 @@ namespace MyInstagram.WebUI.Controllers
     public class ArticlesController : Controller
     {
         IArticleService articleService;
-        int blockSize = 4;
-        ///MyInstagramEntities my = new MyInstagramEntities();
-        public ArticlesController(IArticleService articleService )
+        IUserService userService;
+        int blockSize = 1;
+        //MyInstagramEntities my = new MyInstagramEntities();
+        public ArticlesController(IArticleService articleService, IUserService userService)
         {
             this.articleService = articleService;
+            this.userService = userService;
         }
 
-      
-   
         public ActionResult Index([System.Web.Http.FromBody] int count = 0)
         {
             string userId = User.Identity.GetUserId();
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager
-                .Users
-                .Include(x => x.Following)
-                .Where(x => x.Id == userId)
-                .FirstOrDefault();
+            var followingUsersId = userService.GetFollowing(userId).Select(x=>x.Id).ToList();
+            var articles = articleService.FindBy(x => followingUsersId.Contains(x.ApplicationUserId))
+                .OrderByDescending(x=>x.DateCreated);
 
-            var following = user.Following.Select(x => x.Id);
-
-            if (Request.IsAjaxRequest())
+            if(Request.IsAjaxRequest())
             {
-                var articlesCount = articleService
-                    .FindBy(x => following.Contains(x.ApplicationUserId)).Count();
+                var articlesCount = articles.Count();
                 if (count < articlesCount)
                 {
                     int numberOfBlock = count / blockSize;
-                   
-                    var articlesBlock = articleService
-                                .FindBy(x => following.Contains(x.ApplicationUserId))
-                                .OrderBy(x => x.DateCreated)
-                                .Reverse()
-                                .Skip(numberOfBlock * blockSize)
-                                .Take(blockSize);
+                    var articlesBlock = articles.Skip(numberOfBlock * blockSize)
+                        .Take(blockSize).ToList();
                     return PartialView("ArticlesBlock", articlesBlock);
                 }
                 return null;
             }
-            var articles = articleService
-                .FindBy(x => following.Contains(x.ApplicationUserId))
-                .OrderBy(x=>x.DateCreated)
-                .Reverse()
-                .Take(blockSize);
-            
-            return View(articles);
-        }
+            var arts = articles.Take(blockSize).ToList();
+            return View(arts);
+        }       
 
-
-        public PartialViewResult Photos(string userId)
+        //--------------------------------------------------------------------------//
+        [ChildActionOnly]
+        public PartialViewResult UserArticles(string userId)
         {
-            var artCount = articleService.FindBy(x => x.ApplicationUserId == userId).Count();
-
-            if (artCount == 0)
-                return PartialView("Photos", null);
-
             var articles = articleService.FindBy(x => x.ApplicationUserId == userId)
-                .Select(x =>new Article { ArticleId = x.ArticleId, Description = x.Description, ApplicationUserId = x.ApplicationUserId })
-                .Reverse()
+                .Select(x => new ArticleViewModel
+                {
+                    ArticleId = x.ArticleId,
+                    Description = x.Description,
+                    ApplicationUserId = x.ApplicationUserId
+                })
                 .AsEnumerable();
-            return PartialView("Photos", articles);
+
+            if (articles.Count() == 0)
+                return PartialView(null);
+            return PartialView(articles);
         }
 
+        [ChildActionOnly]
         public PartialViewResult DeletePhotoButton(string userId, int articleId)
         {
             string currentUserId = User.Identity.GetUserId();
@@ -94,31 +74,13 @@ namespace MyInstagram.WebUI.Controllers
         }
 
 
-        public PartialViewResult FollowingPhotos()
+        public FileContentResult GetArticleImage(int articleId)
         {
-            string userId = User.Identity.GetUserId();
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager.Users.Include(x => x.Following).Where(x => x.Id == userId).FirstOrDefault();
-            var following = user.Following.Select(x => x.Id);
-
-            var articles = articleService.FindBy(x => following.Contains(x.ApplicationUserId));
-            return PartialView("FollowingPhotos", articles);
-        }
-
-
-
-        public FileContentResult GetImage(int articleId) {
             Article article = articleService.GetById(articleId);
-            if (article != null)
-            {
-                return File(article.ImageData, article.ImageMimeType);
-            }
-            else
-            {                
+            if (article == null)
                 return null;
-            }
+            return File(article.ImageData, article.ImageMimeType);            
         }
-
 
         // GET: Articles/Create
         public ActionResult Create()
@@ -126,51 +88,38 @@ namespace MyInstagram.WebUI.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Article article, HttpPostedFileBase image = null)
+        public ActionResult Create(ArticleViewModel model, HttpPostedFileBase image = null)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
+                return View(model);
+            if (image == null)
             {
-                if (image != null)
-                {
-                    article.ImageMimeType = image.ContentType;
-                    article.ImageData = new byte[image.ContentLength];
-                    image.InputStream.Read(article.ImageData, 0, image.ContentLength);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Add image, please");
-                    return View(article);
-                }
-                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var user = userManager.FindById(User.Identity.GetUserId());
-                user.UserArticles.Add(article);
-
-                userManager.Update(user);
-                return RedirectToAction("Page","User");
+                ModelState.AddModelError("", "Add image, please");
+                return View(model);
             }
-
-            return View(article);
+            
+            var article = new Article
+            {
+                Description = model.Description,
+                ImageData = new byte[image.ContentLength],
+                ImageMimeType = image.ContentType,
+                ApplicationUserId = User.Identity.GetUserId()
+            };
+            image.InputStream.Read(article.ImageData, 0, image.ContentLength);
+            articleService.Create(article);
+            return RedirectToAction("Page", "User"); // ----------------------------------------------------            
         }
-
-
-
-
 
         // GET: Articles/Delete/5
         public ActionResult Delete(int id)
         {
-
             var article = articleService.GetById(id);
-            if (article != null)
-            {
-                if (article.ApplicationUserId == User.Identity.GetUserId())
-                {
-                    articleService.Delete(article);
-                }
-            }
+            if (article == null)
+                return null;
+            if (article.ApplicationUserId == User.Identity.GetUserId())
+                articleService.Delete(article);
             return null;
         }
     }

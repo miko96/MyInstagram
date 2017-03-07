@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MyInstagram.WebUI.Models.ArticleViewModel>
+<div class="container">
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var article in Model)
+            {
+
+                <div class="col-md-4">
+                    <div class="thumbnail" style="width:100%; height:450px; overflow:auto">
+                        <img class="postimg" style="width:100%; height:300px; display: block;"
+                             src="@Url.Action("GetArticleImage", "Articles",new { article.ArticleId })" alt="abc" />
+                        <hr />
+                        <strong>Description:</strong>
+                        @article.Description
+                        <hr />
+                        @Html.Action("DeletePhotoButton", "Articles", new { userId = article.ApplicationUserId, articleId = article.ArticleId })
+                    </div>
+                </div>
+
+            }
+        }
+        else
+        {
+            <div class="col-md-12">
+                <h4 class="text-center">you don't have any photos</h4>
+            </div>
+        }
+    </div>
+</div>
+

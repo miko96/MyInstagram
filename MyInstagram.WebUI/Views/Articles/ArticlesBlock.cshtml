@@ -3,15 +3,13 @@
 @foreach (var article in Model)
 {
     <div class="col-md-6 col-md-offset-3">
-
-
         <div class="thumbnail">
-            <a class="text-center" href="@Url.Action("Page", "User", new { userName = article.applicationUser.UserName })">
-                <h3>@article.applicationUser.UserName</h3>
+            <a class="text-center" href="@Url.Action("Page", "User", new { userName = article.ApplicationUser.UserName })">
+                <h3>@article.ApplicationUser.UserName</h3>
             </a>
             <hr />
-            <img class="img-responsive" src="@Url.Action("GetImage", "Articles",
-                                new { article.ArticleID })" alt="abc">
+            <img class="img-responsive" src="@Url.Action("GetArticleImage", "Articles",
+                                new { article.ArticleId })" alt="abc">
             <hr />
             <strong>Description:</strong>
             @article.Description

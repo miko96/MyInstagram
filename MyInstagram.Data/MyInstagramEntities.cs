@@ -20,10 +20,10 @@ namespace MyInstagram.Data
             Database.SetInitializer<MyInstagramEntities>(new IdentityDbInit());
         }
 
-        public static MyInstagramEntities Create()
-        {
-            return new MyInstagramEntities();
-        }
+        //public static MyInstagramEntities Create()
+        //{
+        //    return new MyInstagramEntities();
+        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

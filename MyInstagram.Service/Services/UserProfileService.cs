@@ -23,20 +23,20 @@ namespace MyInstagram.Service.Services
 
         public UserProfile GetById(string Id)
         {
-            return userProfileRepository.GetById(Id);
+            return FindBy(x => x.UserId == Id).FirstOrDefault();
         }
 
-        public IEnumerable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate)
-        {
-            return userProfileRepository.FindBy(predicate);
-        }
+        //public IQueryable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate)
+        //{
+        //    return userProfileRepository.FindBy(predicate);
+        //}
 
-        public void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties)
-        {
-            userProfileRepository.UpdateProperties(entity, properties);
-            unitOfWork.Commit();
-        }
-         public IQueryable<UserProfile> GetProfiles()
+        //public void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties)
+        //{
+        //    userProfileRepository.UpdateProperties(entity, properties);
+        //    unitOfWork.Commit();
+        //}
+        public IQueryable<UserProfile> GetProfiles()
         {
             return userProfileRepository.GetProfiles();
         }
@@ -46,7 +46,6 @@ namespace MyInstagram.Service.Services
     {
         UserProfile GetById(string Id);
         IQueryable<UserProfile> GetProfiles();
-        IEnumerable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate);
-        void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties);
+        //IQueryable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate);       
     }
 }

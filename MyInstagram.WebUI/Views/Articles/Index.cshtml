@@ -8,17 +8,15 @@
         <div id="Articles">
             @foreach (var article in Model)
             {
-
                 <div class="col-md-6 col-md-offset-3">
 
-
                     <div class="thumbnail">
-                        <a class="text-center"  href="@Url.Action("Page", "User", new { userName = article.applicationUser.UserName })">
-                        <h3 >@article.applicationUser.UserName</h3>
+                        <a class="text-center" href="@Url.Action("Page", "User", new { userName = article.ApplicationUser.UserName })">
+                            <h3>@article.ApplicationUser.UserName</h3>
                         </a>
                         <hr />
-                        <img class="img-responsive" style="width:100%; display: block;" src="@Url.Action("GetImage", "Articles",
-                                new { article.ArticleID })" alt="abc">
+                        <img class="img-responsive" style="width:100%; display: block;" src="@Url.Action("GetArticleImage", "Articles",
+                                new { article.ArticleId })" alt="abc">
                         <hr />
                         <strong>Description:</strong>
                         @article.Description
@@ -26,11 +24,19 @@
                 </div>
             }
         </div>
-        <div class="col-md-12 text-center">
-            <input type="button" value="show more" id="btn" class="btn btn-danger" />
+        @if (Model.Count() != 0)
+        {
+            <div class="col-md-12 text-center">
+                <input type="button" value="show more" id="btn" class="btn btn-danger" />
             </div>
-            
-        </div>
+        }
+        else
+        {
+            <h1 class="col-md-12 text-center">
+                Users that you follow don't have any articles
+            </h1>
+        }
+    </div>
 </div>
 @section Scripts
     {
@@ -42,7 +48,12 @@
                 data: { count: a },
                 type: "POST",
                 success: function (data) {
-                    $('#Articles').append(data);
+                    if (data) {
+                        $('#Articles').append(data);
+                    }
+                    else {
+                        $('#btn').hide();
+                    }
                 }
             });
         })

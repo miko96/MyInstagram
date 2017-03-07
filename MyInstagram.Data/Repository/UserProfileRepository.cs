@@ -15,10 +15,10 @@ namespace MyInstagram.Data.Repository
         public UserProfileRepository(DbContext context)
             : base(context) { }
 
-        public UserProfile GetById(string Id)
-        {
-            return FindBy(x => x.UserId == Id).FirstOrDefault();
-        }
+        //public UserProfile GetById(string Id)
+        //{
+        //    return FindBy(x => x.UserId == Id).FirstOrDefault();
+        //}
         public IQueryable<UserProfile> GetProfiles()
         {
             return dbset.AsQueryable<UserProfile>();
@@ -29,7 +29,7 @@ namespace MyInstagram.Data.Repository
 
     public interface IUserProfileRepository : IRepository<UserProfile>
     {
-        UserProfile GetById(string Id);
+        //UserProfile GetById(string Id);
         IQueryable<UserProfile> GetProfiles();
     }
 }

@@ -13,12 +13,12 @@ namespace MyInstagram.Data.Infrastructure
                 : base(store)
         {
         }
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
-                                                IOwinContext context)
-        {
-            MyInstagramEntities db = context.Get<MyInstagramEntities>();
-            ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            return manager;
-        }
+        //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
+        //                                        IOwinContext context)
+        //{
+        //    MyInstagramEntities db = context.Get<MyInstagramEntities>();
+        //    ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+        //    return manager;
+        //}
     }
 }

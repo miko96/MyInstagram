@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyInstagram.Data.Infrastructure;
+using System.Linq.Expressions;
+
 namespace MyInstagram.Service.Infrastructure
 {
     public abstract class EntityService<T> : IEntityService<T> 
@@ -40,6 +42,18 @@ namespace MyInstagram.Service.Infrastructure
                 throw new ArgumentNullException("entity");
             repository.Delete(entity);
             unitOfWork.Commit();
+        }
+
+        public void UpdateProperties(T entity, params Expression<Func<T, object>>[] properties)
+        {
+            repository.UpdateProperties(entity, properties);
+            unitOfWork.Commit();
+        }
+
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        {
+            IQueryable<T> query = repository.FindBy(predicate);
+            return query;
         }
 
         public virtual IEnumerable<T> GetAll()

@@ -1,45 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using MyInstagram.WebUI.Models;
 using MyInstagram.Data.Infrastructure;
-using MyInstagram.Data.Entities;
 using MyInstagram.Service.Services;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System.Security.Claims;
-using System.Data.Entity;
 using MyInstagram.WebUI.Infrastructure;
+using AutoMapper;
+using MyInstagram.Service.Models;
 
 namespace MyInstagram.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        IUserProfileService userProfileService;
+        IUserService userService;
+        ApplicationUserManager userManager;
 
-        public AccountController(IUserProfileService userProfileService)
+        public AccountController(IUserService userService, ApplicationUserManager userManager)
         {
-            this.userProfileService = userProfileService;
-        }
-
-        private ApplicationUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
+            this.userService = userService;
+            this.userManager = userManager;
         }
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         [RedirectAuthenticatedRequests]
@@ -48,35 +34,20 @@ namespace MyInstagram.WebUI.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser() { UserName = model.UserName };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+                Mapper.Initialize(x => x.CreateMap<RegisterViewModel, RegisterServiceModel>());
+                var serviceModel = Mapper.Map<RegisterViewModel, RegisterServiceModel>(model);
+                IdentityResult result = await userService.CreateUser(serviceModel);
                 if (result.Succeeded)
-                {
-                    var userProfile = new UserProfile()
-                    {
-                        UserId = user.Id,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName
-                    };
-                    userProfileService.Create(userProfile);
-                    return RedirectToAction("Login", "Account");
-                }
+                    return RedirectToAction("Login", "Account");//------------------------------------------
                 else
-                {
                     foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
+                        ModelState.AddModelError("", error);      
             }
             return View(model);
         }
@@ -84,41 +55,43 @@ namespace MyInstagram.WebUI.Controllers
         [RedirectAuthenticatedRequests]
         public ViewResult Login(string returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
+            //ViewBag.returnUrl = returnUrl;
             return View();
+        }
+
+        public async Task<ActionResult> Test(string userName)
+        {
+            var result = await userService.DeleteUser(userName);
+            return null;
         }
 
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Error login or password");
-                return View(model);
-            }
-            else
-            {
-                ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                                            DefaultAuthenticationTypes.ApplicationCookie);
-                AuthenticationManager.SignOut();
-                AuthenticationManager.SignIn(new AuthenticationProperties
+                Mapper.Initialize(x => x.CreateMap<LoginViewModel, LoginServiceModel>());
+                var seviceModel = Mapper.Map<LoginViewModel, LoginServiceModel>(model);
+                var calim = await userService.Authenticate(seviceModel);
+                if (calim == null) 
+                    ModelState.AddModelError("", "Error login or password");
+                else
                 {
-                    IsPersistent = true
-                }, claim);
-
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, calim);
+                    return RedirectToAction("Page", "User"); //------------------------------------------
+                }
             }
-            return RedirectToAction("Page", "User");
+            return View(model);
         }
-
 
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Account");//------------------------------------------
         }
     }
 }

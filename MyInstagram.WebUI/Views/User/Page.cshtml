@@ -1,4 +1,4 @@
-﻿@model MyInstagram.WebUI.Models.UserViewModel
+﻿@model MyInstagram.WebUI.Models.PageViewModel
 
 @{
     ViewBag.Title = "UserPage";
@@ -8,45 +8,39 @@
     <div class="row">
         <div class="col-md-12 text-center">
             @*<img class="img-responsive img-circle" style="margin:0 auto" src="http://placehold.it/256x256" alt="">*@
-            <img class="img-circle" style="margin:0 auto" width="256" height="256" src="@Url.Action("GetPageImage", "User",new { Id = Model.UserId })" alt="">
-            <h1>
-                @Model.FirstName @Model.LastName
-                @if (Model.IsAuthenticated)
+            <div>
+                <img class="img-circle" style="margin:0 auto" width="256" height="256" src="@Url.Action("GetProfileImage", "Profile",new { Id = Model.UserId })" alt="">
+            </div>
+            <div style="display:inline-block">
+                <h1>
+                    @Model.FirstName @Model.LastName
+                </h1>
+            </div>
+            <div style="display:inline-block">
+                @if (ViewBag.isOwnPage == true)
+            {
+                    @Html.ActionLink("Edit Profile", "Edit", "Profile", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Log out", "Logout", "Account", null, new { @class = "btn btn-primary", @style = "margin-left: 20px;" })
+                }
+                else
                 {
-                    if (Model.IsOwnPage)
+                    using (Ajax.BeginForm(new AjaxOptions
                     {
-                        @Html.ActionLink("Edit Profile", "Edit", "Profile", null, new { @class = "btn btn-primary" });
-                        @Html.ActionLink("Log out", "Logout", "Account", null, new { @class = "btn btn-primary", @style = "margin-left: 20px;" });
-                    }
-                    else
+                        UpdateTargetId = "FollowersCount",
+                        HttpMethod = "POST",
+                        Url = "/User/FollowUnfollowUser",
+                        OnSuccess = "suc",
+                        OnFailure = "fail"
+                    }))
                     {
-                        string a = "Follow";
-                        if (Model.IsFollowing)
-                        {
-                            a = "Unfollow";
-                        }
-                        using (Ajax.BeginForm(new AjaxOptions
-                        {
-                            UpdateTargetId = "FollowersCount",
-                            HttpMethod = "POST",
-                            Url = "/api/art/FollowUnfollow",
-                            OnSuccess = "suc",
-                            OnFailure = "fail"
-                        }))
-                        {
-                            <input type="text" name="fromUserId" hidden="hidden" value=@Model.CurrentUserId />
-                            <input type="text" name="toUserId" hidden="hidden" value=@Model.UserId />
-                            <input id="subbtn" type="submit" value=@a class="btn btn-primary" />
-                        }
+                        @*<input type="text" name="UserId" hidden="hidden" value=@ViewBag.CurrentUserId />*@
+                        <input type="text" name="toUserId" hidden="hidden" value=@Model.UserId />
+                        <input id="subbtn" type="submit" value=@ViewBag.buttonName class="btn btn-primary" />
                     }
                 }
-
-
-            </h1>
-
+            </div>                     
             <ul class="list-inline">
                 <li>
-
                     <span id="ArticlesCount" class="badge pull-right">@Model.ArticlesCount</span>
                     Articles
                 </li>
@@ -65,15 +59,9 @@
             </ul>
             <hr />
         </div>
-    </div>
-
-    
+    </div>  
 </div>
-<div class="container-fluid">
-    <div class="row">
-        @Html.Action("Photos", "Articles", new { userId = Model.UserId })
-    </div>
-</div>
+@Html.Action("UserArticles", "Articles", new { userId = Model.UserId })
 
 @section Scripts
 {

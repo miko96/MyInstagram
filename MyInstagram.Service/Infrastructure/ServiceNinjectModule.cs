@@ -10,6 +10,7 @@ namespace MyInstagram.Service.Infrastructure
             Bind<IArticleService>().To<ArticleService>();
             //Bind<IUserArticleService>().To<UserArticleService>();
             Bind<IUserProfileService>().To<UserProfileService>();
+            Bind<IUserService>().To<UserService>();
         }
     }
 }

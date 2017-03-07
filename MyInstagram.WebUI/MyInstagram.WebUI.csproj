@@ -49,6 +49,10 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -264,6 +268,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModel.cs" />
     <Compile Include="Models\FindUserViewModel.cs" />
+    <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -278,14 +283,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Articles\Create.cshtml" />
-    <Content Include="Views\Articles\Delete.cshtml" />
-    <Content Include="Views\Articles\Details.cshtml" />
-    <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
-    <Content Include="Views\Articles\Photos.cshtml" />
+    <Content Include="Views\Articles\UserArticles.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\Page.cshtml" />
-    <Content Include="Views\Articles\FollowingPhotos.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\User\FindUser.cshtml" />
     <Content Include="Views\User\FindUserList.cshtml" />

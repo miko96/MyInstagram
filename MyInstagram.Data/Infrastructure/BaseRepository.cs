@@ -22,9 +22,9 @@ namespace MyInstagram.Data.Infrastructure
             return dbset.AsEnumerable<T>();
         }
 
-        public virtual IEnumerable<T> FindBy(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-            IEnumerable<T> query = dbset.Where(predicate).AsEnumerable();
+            IQueryable<T> query = dbset.Where(predicate);
             return query;
         }
 
