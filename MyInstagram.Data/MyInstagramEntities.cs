@@ -37,27 +37,7 @@ namespace MyInstagram.Data
             modelBuilder.Configurations.Add(new ArticleLikeConfiguration());
             modelBuilder.Configurations.Add(new ArticleCommentConfiguration());
             modelBuilder.Configurations.Add(new UserProfileConfiguration());
-            
-           
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(c => c.Followers)
-            //    .WithMany(c => c.Following)
-            //    .Map(m =>
-            //    {
-            //        m.MapLeftKey("FollowersId");
-            //        m.MapRightKey("FollowingId");
-            //        m.ToTable("Followers");
-            //    });
-
-            //    modelBuilder.Entity<ApplicationUser>()
-            //        .HasMany(c => c.FavoriteArticles)
-            //        .WithMany(c => c.UsersLikes)                              
-            //        .Map(m =>
-            //        {
-            //            m.MapLeftKey("FavoriteArticlesId");
-            //            m.MapRightKey("UsersLikesId");
-            //            m.ToTable("ArticleLikes");
-            //        });          
+                              
         }
 
     }

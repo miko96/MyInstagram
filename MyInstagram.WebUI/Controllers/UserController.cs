@@ -31,7 +31,6 @@ namespace MyInstagram.WebUI.Controllers
             this.userManager = userManager;
         }
 
-        //???????????????????????????????
         public string FollowUnfollowUser(string toUserId)
         {
             string userId = User.Identity.GetUserId();
@@ -92,44 +91,11 @@ namespace MyInstagram.WebUI.Controllers
                 FollowingCount = user.Following.Count
             };
             var currentUserId = User.Identity.GetUserId();
-            //ViewBag.CurrentUserId = currentUserId;
             ViewBag.IsOwnPage = (user.Id == currentUserId);
             var isFollow = userService.isFollow(currentUserId, user.Id);
             ViewBag.buttonName = isFollow ? "Unfollow" : "Follow";
 
-            return View(pageModel);
-            //var currentUserId = User.Identity.GetUserId();
-            //var isOwnPage = (user.Id == currentUserId);
-
-            //bool isFollowing = false;
-            //if (!isOwnPage)
-            //{
-            //    var currentUser = userManager.Users
-            //        .Include(x => x.Following)
-            //        .Where(x => x.Id == currentUserId).FirstOrDefault();
-            //    isFollowing = currentUser.Following.Contains(user);
-            //}
-
-
-            //int articlesCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.UserArticles).Count();
-            //int followersCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Followers).Count();
-            //int followingCount = userManager.Users.Where(x => x.UserName == userName).SelectMany(x => x.Following).Count();
-
-            //var usModel = new UserViewModel()
-            //{
-            //    UserId = user.Id,
-            //    CurrentUserId = currentUserId,
-            //    FirstName = user.UserProfile.FirstName,
-            //    LastName = user.UserProfile.LastName,
-            //    IsAuthenticated = true,
-            //    IsOwnPage = isOwnPage,
-            //    IsFollowing = isFollowing,
-            //    ArticlesCount = articlesCount,
-            //    FollowersCount = followersCount,
-            //    FollowingCount = followingCount
-
-            //};
-
+            return View(pageModel);          
         }
 
         public ActionResult FindUser()
@@ -147,13 +113,9 @@ namespace MyInstagram.WebUI.Controllers
                 && userData.UserName == null)
                 return PartialView("FindUserList", null);
             var profiles = userProfileService.GetProfiles();
-            //    //var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            
             if (userData.UserName != null)
-            {
-                //var userProfile = userManager.Users
-                //    .Where(x => x.UserName == userData.UserName)
-                //    .Select(x => x.UserProfile).Include(x => x.ApplicationUser)
-                //    .AsEnumerable();
+            {               
                 var userProfile = profiles
                     .Where(x => x.ApplicationUser.UserName == userData.UserName)
                     .ToList();
@@ -161,8 +123,6 @@ namespace MyInstagram.WebUI.Controllers
                     return PartialView("FindUserList", userProfile);
                 return PartialView("FindUserList", null);
             }
-
-            //    
 
             if (userData.FirstName != null)
                 profiles = profiles.Where(x => x.FirstName == userData.FirstName);
