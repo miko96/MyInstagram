@@ -27,16 +27,10 @@ namespace MyInstagram.Service.Services
         {
             return FindBy(x => x.ArticleId == id).FirstOrDefault();
         }
-        //public IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate)
-        //{
-        //    return articleRepository.FindBy(predicate);
-        //}
     }
 
     public interface IArticleService : IEntityService<Article>
     {
         Article GetById(int id);
-        //IEnumerable<Article> FindBy(Expression<Func<Article, bool>> predicate);
-
     }
 }

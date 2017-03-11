@@ -112,6 +112,7 @@ namespace MyInstagram.WebUI.Controllers
                 && userData.Sex == null
                 && userData.UserName == null)
                 return PartialView("FindUserList", null);
+
             var profiles = userProfileService.GetProfiles();
             
             if (userData.UserName != null)

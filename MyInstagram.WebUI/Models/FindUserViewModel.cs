@@ -13,6 +13,5 @@ namespace MyInstagram.WebUI.Models
         public string LastName { get; set; }
         public string Sex { get; set; }
         public string County { get; set; }
-
     }
 }

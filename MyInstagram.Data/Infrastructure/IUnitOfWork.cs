@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyInstagram.Data.Infrastructure
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         int Commit();
     }

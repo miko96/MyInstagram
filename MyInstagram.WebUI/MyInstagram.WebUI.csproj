@@ -269,7 +269,6 @@
     <Compile Include="Models\ArticleViewModel.cs" />
     <Compile Include="Models\FindUserViewModel.cs" />
     <Compile Include="Models\PageViewModel.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

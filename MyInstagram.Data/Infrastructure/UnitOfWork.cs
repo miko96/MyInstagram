@@ -16,24 +16,6 @@ namespace MyInstagram.Data.Infrastructure
         public int Commit()
         {
             return dbContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (dbContext != null)
-                {
-                    dbContext.Dispose();
-                    dbContext = null;
-                }
-            }
-        }
+        }      
     }
 }

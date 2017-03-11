@@ -26,16 +26,6 @@ namespace MyInstagram.Service.Services
             return FindBy(x => x.UserId == Id).FirstOrDefault();
         }
 
-        //public IQueryable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate)
-        //{
-        //    return userProfileRepository.FindBy(predicate);
-        //}
-
-        //public void UpdateProperties(UserProfile entity, params Expression<Func<UserProfile, object>>[] properties)
-        //{
-        //    userProfileRepository.UpdateProperties(entity, properties);
-        //    unitOfWork.Commit();
-        //}
         public IQueryable<UserProfile> GetProfiles()
         {
             return userProfileRepository.GetProfiles();
@@ -45,7 +35,6 @@ namespace MyInstagram.Service.Services
     public interface IUserProfileService : IEntityService<UserProfile>
     {
         UserProfile GetById(string Id);
-        IQueryable<UserProfile> GetProfiles();
-        //IQueryable<UserProfile> FindBy(Expression<Func<UserProfile, bool>> predicate);       
+        IQueryable<UserProfile> GetProfiles();      
     }
 }

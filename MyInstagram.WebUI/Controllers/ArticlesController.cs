@@ -26,11 +26,11 @@ namespace MyInstagram.WebUI.Controllers
         public ActionResult Index([System.Web.Http.FromBody] int count = 0)
         {
             string userId = User.Identity.GetUserId();
-            var followingUsersId = userService.GetFollowing(userId).Select(x=>x.Id).ToList();
+            var followingUsersId = userService.GetFollowing(userId).Select(x => x.Id).ToList();
             var articles = articleService.FindBy(x => followingUsersId.Contains(x.ApplicationUserId))
-                .OrderByDescending(x=>x.DateCreated);
+                .OrderByDescending(x => x.DateCreated);
 
-            if(Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
             {
                 var articlesCount = articles.Count();
                 if (count < articlesCount)
@@ -44,7 +44,7 @@ namespace MyInstagram.WebUI.Controllers
             }
             var arts = articles.Take(blockSize).ToList();
             return View(arts);
-        }       
+        }
 
         //--------------------------------------------------------------------------//
         [ChildActionOnly]
@@ -79,7 +79,7 @@ namespace MyInstagram.WebUI.Controllers
             Article article = articleService.GetById(articleId);
             if (article == null)
                 return null;
-            return File(article.ImageData, article.ImageMimeType);            
+            return File(article.ImageData, article.ImageMimeType);
         }
 
         // GET: Articles/Create
@@ -99,7 +99,7 @@ namespace MyInstagram.WebUI.Controllers
                 ModelState.AddModelError("", "Add image, please");
                 return View(model);
             }
-            
+
             var article = new Article
             {
                 Description = model.Description,
